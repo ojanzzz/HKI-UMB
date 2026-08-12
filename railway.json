@@ -1,0 +1,38 @@
+{
+  "apps": [
+    {
+      "name": "hki-umb",
+      "services": [
+        {
+          "name": "laravel",
+          "source": {
+            "repo": "ojanzzz/HKI-UMB",
+            "branch": "main"
+          },
+          "build": {
+            "buildCommand": "composer install --no-dev --optimize-autoloader && npm install && npm run build"
+          },
+          "start": {
+            "startCommand": "php artisan migrate --force && php artisan serve --host 0.0.0.0 --port $PORT"
+          },
+          "env": {
+            "APP_NAME": "HKI UM BIMA",
+            "APP_ENV": "production",
+            "APP_DEBUG": "false",
+            "APP_KEY": "base64:GENERATE_KEY_DI_LOCAL",
+            "APP_URL": "https://hki-umb.up.railway.app",
+            "LOG_CHANNEL": "errorlog",
+            "LOG_LEVEL": "error",
+            "SESSION_DRIVER": "database",
+            "QUEUE_CONNECTION": "sync",
+            "CACHE_STORE": "database",
+            "FILESYSTEM_DISK": "public",
+            "MAIL_MAILER": "log",
+            "MAIL_FROM_ADDRESS": "noreply@umb.ac.id",
+            "MAIL_FROM_NAME": "Sentra HKI UM BIMA"
+          }
+        }
+      ]
+    }
+  ]
+}
