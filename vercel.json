@@ -1,5 +1,17 @@
 {
-  "functions.api/index.php": {
-    "runtime": "php8.2"
-  }
+    "routes": [
+        { "src": "/(.*)", "dest": "/api/index.php" }
+    ],
+    "env": {
+        "APP_NAME": "HKI UM BIMA",
+        "APP_ENV": "production",
+        "APP_DEBUG": "false",
+        "APP_URL": "https://hki-umb.vercel.app",
+        "LOG_CHANNEL": "errorlog",
+        "LOG_LEVEL": "error",
+        "SESSION_DRIVER": "database",
+        "QUEUE_CONNECTION": "sync",
+        "CACHE_STORE": "database",
+        "FILESYSTEM_DISK": "public"
+    }
 }
