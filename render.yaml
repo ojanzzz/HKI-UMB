@@ -1,0 +1,42 @@
+databases:
+  - name: hki-umb-db
+    plan: free
+    databaseName: hki_umb
+    user: hki_umb
+
+services:
+  - type: web
+    name: hki-umb
+    runtime: php
+    plan: free
+    buildCommand: composer install --no-dev --optimize-autoloader && npm install && npm run build
+    startCommand: php artisan migrate --force && php artisan serve --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_NAME
+        value: "HKI UM BIMA"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: https://hki-umb.onrender.com
+      - key: LOG_CHANNEL
+        value: errorlog
+      - key: LOG_LEVEL
+        value: error
+      - key: SESSION_DRIVER
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: CACHE_STORE
+        value: database
+      - key: FILESYSTEM_DISK
+        value: public
+      - key: MAIL_MAILER
+        value: log
+      - key: MAIL_FROM_ADDRESS
+        value: noreply@umb.ac.id
+      - key: MAIL_FROM_NAME
+        value: Sentra HKI UM BIMA
