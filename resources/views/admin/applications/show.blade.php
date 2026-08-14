@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Review & Export ZIP - Admin HKI UM BIMA')
+@section('title', 'Review & Export ZIP - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-8 space-y-8">
@@ -10,7 +10,7 @@
         <div class="space-y-2">
             <div class="flex items-center gap-3">
                 <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider">
-                    REVIEW PERMOHONAN HKI #{{ $application->id }}
+                    REVIEW PERMOHONAN KI #{{ $application->id }}
                 </span>
                 <span class="bg-slate-100 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded border border-slate-200 uppercase">
                     {{ strtoupper($application->application_type) }}
@@ -56,7 +56,7 @@
                 <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider">
                     DETAIL ANGGOTA
                 </span>
-                <h3 class="text-base font-extrabold text-slate-900 uppercase tracking-wide mt-1">Identitas Pemohon pada Permohonan HKI</h3>
+                <h3 class="text-base font-extrabold text-slate-900 uppercase tracking-wide mt-1">Identitas Pemohon pada Permohonan KI</h3>
             </div>
             <span class="text-[10px] font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded border border-slate-200">
                 {{ $application->applicants->count() }} Anggota
@@ -106,11 +106,11 @@
         @endforelse
     </div>
 
-    <!-- Grid 8 Dokumen HKI -->
+    <!-- Grid 8 Dokumen KI -->
     <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-4">
         <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
             <div>
-                <h3 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">Pemeriksaan 8 Dokumen HKI Pemohon</h3>
+                <h3 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">Pemeriksaan 8 Dokumen KI Pemohon</h3>
                 <p class="text-xs text-slate-500">Pastikan seluruh dokumen formulir paten telah lengkap dan valid sebelum mendaftarkan ke portal DJKI.</p>
             </div>
             <span class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded border border-slate-200">

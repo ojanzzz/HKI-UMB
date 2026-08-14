@@ -30,6 +30,78 @@ Route::get('/', function () {
     return view('welcome', compact('activePopup', 'sliders', 'publicApplications'));
 })->name('home');
 
+Route::get('/dev/clear-cache', function () {
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    \Illuminate\Support\Facades\Artisan::call('config:clear');
+    return response()->json(['status' => 'success', 'message' => 'View/cache/config cleared successfully.']);
+});
+
+
+
+
+Route::get('/dev/run-migrations', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+
+    $templatesMap = [
+        'data_dukung' => [
+            'title' => '0. Data Dukung',
+            'description' => 'Dokumen data dukung resmi pengajuan KI (Sertifikat, Berita Acara, dll).',
+            'file_name' => '0. Data dukung.docx',
+        ],
+        'daftar_inventor' => [
+            'title' => '1. Daftar Inventor',
+            'description' => 'Template daftar susunan anggota inventor / pencipta.',
+            'file_name' => '1. Template daftar inventor.docx',
+        ],
+        'deskripsi_paten' => [
+            'title' => '2. Deskripsi Paten',
+            'description' => 'Template spesifikasi dan ulasan deskripsi teknis invensi paten.',
+            'file_name' => '2. Template Deskripsi Paten.docx',
+        ],
+        'abstrak' => [
+            'title' => '3. Abstrak Invensi',
+            'description' => 'Template abstrak ringkasan invensi teknologi maksimal 200 kata.',
+            'file_name' => '3. Template abstrak.docx',
+        ],
+        'klaim' => [
+            'title' => '4. Klaim Invensi',
+            'description' => 'Template klaim kebaruan invensi paten yang diajukan.',
+            'file_name' => '4. Template klaim.docx',
+        ],
+        'gambar_invensi' => [
+            'title' => '5. Gambar Invensi',
+            'description' => 'Template penyajian gambar teknik / ilustrasi invensi.',
+            'file_name' => '5. Template Gambar Invensi.docx',
+        ],
+        'pernyataan_pengalihan_hak' => [
+            'title' => '6. Surat Pernyataan Pengalihan Hak',
+            'description' => 'Surat pernyataan pengalihan hak cipta/paten ke institusi UM Bima.',
+            'file_name' => '6. Surat Pernyataan Pengalihan Hak.docx',
+        ],
+        'pernyataan_kepemilikan' => [
+            'title' => '7. Surat Pernyataan Kepemilikan',
+            'description' => 'Surat pernyataan kepemilikan invensi/karya keaslian bermeterai.',
+            'file_name' => '7. Template Surat Pernyataan Kepemilikan.docx',
+        ],
+    ];
+
+    \App\Models\DocumentTemplate::truncate();
+
+    foreach ($templatesMap as $code => $item) {
+        \App\Models\DocumentTemplate::create([
+            'code' => $code,
+            'title' => $item['title'],
+            'description' => $item['description'],
+            'file_name' => $item['file_name'],
+            'file_type' => 'docx',
+            'is_active' => true,
+        ]);
+    }
+
+    return response()->json(['status' => 'success', 'message' => 'Migration and DocumentTemplates updated successfully!']);
+});
+
 // 1b. Halaman Detail Ajuan Publik (tanpa popup modal)
 Route::get('/ajuan/{application}', [HkiApplicationController::class, 'publicShow'])->name('public.applications.show');
 
@@ -38,9 +110,14 @@ Route::view('/panduan', 'panduan')->name('panduan');
 Route::view('/tentang', 'tentang')->name('tentang');
 Route::view('/faq', 'faq')->name('faq');
 
-// 2. Autentikasi Login (Login Biasa Email/Password & Google SSO)
+use App\Http\Controllers\Auth\RegisterController;
+
+// 2. Autentikasi Login & Registrasi (Login Biasa Email/Password, Registrasi, & Google SSO)
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
@@ -111,6 +188,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/application-types/{type}/update', [AdminHkiController::class, 'updateApplicationType'])->name('admin.application-types.update');
     Route::delete('/application-types/{type}', [AdminHkiController::class, 'deleteApplicationType'])->name('admin.application-types.delete');
 
+    // Manajemen Template Dokumen Pengajuan
+    Route::get('/templates', [AdminHkiController::class, 'templatesIndex'])->name('admin.templates');
+    Route::post('/templates/{template}/update', [AdminHkiController::class, 'updateTemplate'])->name('admin.templates.update');
+
     // Master Kategori Pengajuan HKI (UMKM, PERGURUAN TINGGI, UMUM, DLL)
     Route::get('/application-categories', [AdminHkiController::class, 'applicationCategoriesIndex'])->name('admin.application-categories');
     Route::post('/application-categories', [AdminHkiController::class, 'storeApplicationCategory'])->name('admin.application-categories.store');
@@ -126,6 +207,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Homepage Slider Banners CRUD
     Route::get('/sliders', [AdminHkiController::class, 'slidersIndex'])->name('admin.sliders');
     Route::post('/sliders', [AdminHkiController::class, 'storeSlider'])->name('admin.sliders.store');
+    Route::put('/sliders/{slider}', [AdminHkiController::class, 'updateSlider'])->name('admin.sliders.update');
     Route::post('/sliders/{slider}/toggle', [AdminHkiController::class, 'toggleSlider'])->name('admin.sliders.toggle');
     Route::delete('/sliders/{slider}', [AdminHkiController::class, 'deleteSlider'])->name('admin.sliders.delete');
     

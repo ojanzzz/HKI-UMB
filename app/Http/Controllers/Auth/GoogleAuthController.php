@@ -61,7 +61,7 @@ class GoogleAuthController extends Controller
                     ->with('info', 'Akun Anda telah terdaftar dan sedang menunggu approval Admin.');
             }
 
-            return redirect()->route('user.dashboard')->with('success', 'Selamat datang di Sistem Informasi HKI UMB!');
+            return redirect()->route('user.dashboard')->with('success', 'Selamat datang di Sistem Informasi KI UM BIMA!');
 
         } catch (\Exception $e) {
             return redirect()->route('login')->with('error', 'Gagal login via Google: ' . $e->getMessage());

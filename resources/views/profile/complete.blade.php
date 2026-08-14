@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lengkapi Profil Pemohon - Sistem Informasi HKI UM BIMA')
+@section('title', 'Lengkapi Profil Pemohon - Sistem Informasi KI UM BIMA')
 
 @section('content')
 <div class="max-w-xl mx-auto my-12 p-6 bg-white rounded-xl border border-slate-200 shadow-md">
@@ -9,7 +9,7 @@
             LANGKAH 1: KELENGKAPAN PROFIL
         </span>
         <h2 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight mt-2">Form Kelengkapan Identitas Pemohon</h2>
-        <p class="text-xs text-slate-500 mt-1">Lengkapi data NIK, Upload KTP, dan Nomor WhatsApp agar Admin HKI UM BIMA dapat memverifikasi akun Anda.</p>
+        <p class="text-xs text-slate-500 mt-1">Lengkapi data NIK, Upload KTP, dan Nomor WhatsApp agar Admin KI UM BIMA dapat memverifikasi akun Anda.</p>
     </div>
 
     <form action="{{ route('profile.save') }}" method="POST" enctype="multipart/form-data" class="space-y-5 text-xs">

@@ -77,8 +77,8 @@
 <body>
 
     <div class="header">
-        <h2>UNIVERSITAS MERCU BUANA - SENTRA HKI</h2>
-        <p>Jl. Meruya Selatan No. 1, Kembangan, Jakarta Barat 11650 | Email: hki@umb.ac.id</p>
+        <h2>UNIVERSITAS MUHAMMADIYAH BIMA - DIREKTORAT INOVASI DAN KEKAYAAN INTELEKTUAL (KI)</h2>
+        <p>Jl. Meruya Selatan No. 1, Kembangan, Jakarta Barat 11650 | Email: hki@umbima.ac.id</p>
     </div>
 
     <div class="title">
@@ -144,7 +144,7 @@
     </div>
 
     <div class="footer-note">
-        * Dokumen ini digenerate secara otomatis melalui Sistem Informasi HKI UMB terintegrasi DJKI Kemenkumham RI dengan Tanda Tangan Digital (E-Signature HTML5).
+        * Dokumen ini digenerate secara otomatis melalui Sistem Informasi KI UM BIMA terintegrasi DJKI Kemenkumham RI dengan Tanda Tangan Digital (E-Signature HTML5).
     </div>
 
 </body>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Panduan Pengajuan HKI - Sentra HKI UM BIMA')
-@section('meta_description', 'Panduan lengkap alur pengajuan Hak Kekayaan Intelektual (HKI) di Universitas Muhammadiyah Bima. Mudah dipahami, langkah demi langkah.')
+@section('title', 'Panduan Pengajuan KI - Direktorat Inovasi & KI UM BIMA')
+@section('meta_description', 'Panduan lengkap alur pengajuan Kekayaan Intelektual (KI) di Universitas Muhammadiyah Bima. Mudah dipahami, langkah demi langkah.')
 
 @section('content')
 
@@ -14,8 +14,8 @@
             PANDUAN PENGGUNAAN
         </span>
         <h1 class="text-3xl md:text-4xl font-extrabold uppercase tracking-tight leading-tight">
-            Cara Mengajukan HKI<br class="hidden sm:block">
-            <span class="text-amber-300">di Sentra HKI UM BIMA</span>
+            Cara Mengajukan<br class="hidden sm:block">
+            <span class="text-amber-300">di Direktorat Inovasi dan Kekayaan Intelektual (KI) UM BIMA</span>
         </h1>
         <p class="text-emerald-100 text-sm max-w-2xl mx-auto leading-relaxed">
             Proses pengajuan Hak Kekayaan Intelektual (Paten, Hak Cipta, Merek, Desain Industri, dll) 
@@ -32,10 +32,10 @@
     {{-- Section Title --}}
     <div class="text-center space-y-2">
         <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight">
-            Alur Pengajuan HKI — 6 Langkah Mudah
+            Alur Pengajuan KI — 6 Langkah Mudah
         </h2>
         <p class="text-sm text-slate-500 max-w-xl mx-auto">
-            Ikuti langkah-langkah berikut untuk berhasil mendaftarkan Kekayaan Intelektual Anda melalui Sentra HKI UM BIMA.
+            Ikuti langkah-langkah berikut untuk berhasil mendaftarkan Kekayaan Intelektual Anda melalui Sentra KI UM BIMA.
         </p>
     </div>
 
@@ -61,7 +61,7 @@
                     <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
                         <span class="block text-xs font-extrabold text-[#064E3B] uppercase">Kunjungi Portal</span>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Buka <strong class="text-slate-900">hki.umb.ac.id</strong> di browser Anda. Klik tombol <strong>"Daftar Sekarang"</strong> atau <strong>"Masuk dengan Google"</strong>.
+                            Buka <strong class="text-slate-900">Ki.umb.ac.id</strong> di browser Anda. Klik tombol <strong>"Daftar Sekarang"</strong> atau <strong>"Masuk dengan Google"</strong>.
                         </p>
                     </div>
                     <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
@@ -73,7 +73,7 @@
                     <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2">
                         <span class="block text-xs font-extrabold text-[#064E3B] uppercase">Tunggu Verifikasi</span>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Admin Sentra HKI akan memverifikasi akun Anda. Notifikasi <strong>Email & WhatsApp</strong> otomatis dikirim saat akun disetujui.
+                            Admin Direktorat Inovasi & KI akan memverifikasi akun Anda. Notifikasi <strong>Email & WhatsApp</strong> otomatis dikirim saat akun disetujui.
                         </p>
                     </div>
                 </div>
@@ -94,14 +94,14 @@
                 <div class="bg-blue-50 border-b border-blue-200 px-6 py-4 flex items-center gap-3">
                     <span class="text-2xl">📋</span>
                     <div>
-                        <h3 class="font-extrabold text-slate-900 text-base uppercase tracking-wide">Buat Pengajuan HKI Baru</h3>
+                        <h3 class="font-extrabold text-slate-900 text-base uppercase tracking-wide">Buat Pengajuan KI Baru</h3>
                         <p class="text-[11px] text-blue-700 font-medium">Isi formulir 5 langkah yang sederhana dan interaktif</p>
                     </div>
                 </div>
                 <div class="p-6 space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-5 gap-2">
                         @foreach([
-                            ['num' => '1', 'label' => 'Jenis KI', 'icon' => '🏷️', 'desc' => 'Pilih jenis HKI (Paten, Hak Cipta, Merek, dll) & Kategori Pengajuan'],
+                            ['num' => '1', 'label' => 'Jenis KI', 'icon' => '🏷️', 'desc' => 'Pilih jenis KI (Paten, Hak Cipta, Merek, dll) & Kategori Pengajuan'],
                             ['num' => '2', 'label' => 'Pemohon', 'icon' => '👤', 'desc' => 'Konfirmasi data NIK, email, WA, dan Fakultas Anda'],
                             ['num' => '3', 'label' => 'Detail', 'icon' => '📝', 'desc' => 'Isi judul invensi, deskripsi, dan upload foto produk'],
                             ['num' => '4', 'label' => 'Dokumen', 'icon' => '📁', 'desc' => 'Lihat daftar 8 template formulir resmi yang perlu diisi'],
@@ -134,7 +134,7 @@
                     <span class="text-2xl">📥</span>
                     <div>
                         <h3 class="font-extrabold text-slate-900 text-base uppercase tracking-wide">Unduh & Isi 8 Formulir Dokumen</h3>
-                        <p class="text-[11px] text-amber-800 font-medium">Template Word resmi disediakan langsung oleh Admin Sentra HKI</p>
+                        <p class="text-[11px] text-amber-800 font-medium">Template Word resmi disediakan langsung oleh Admin Direktorat Inovasi & KI</p>
                     </div>
                 </div>
                 <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -231,7 +231,7 @@
                     <span class="text-2xl">🔍</span>
                     <div>
                         <h3 class="font-extrabold text-slate-900 text-base uppercase tracking-wide">Admin Mereview & Mendaftarkan ke DJKI</h3>
-                        <p class="text-[11px] text-orange-700 font-medium">Proses ini ditangani oleh Admin Sentra HKI UM BIMA — Anda cukup menunggu</p>
+                        <p class="text-[11px] text-orange-700 font-medium">Proses ini ditangani oleh Admin Direktorat Inovasi & KI UM BIMA — Anda cukup menunggu</p>
                     </div>
                 </div>
                 <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
@@ -305,7 +305,7 @@
                     <div class="bg-blue-50 rounded-xl border border-blue-200 p-4 space-y-2">
                         <span class="block font-extrabold text-blue-900 uppercase text-[11px]">2. Lakukan Pembayaran</span>
                         <p class="text-blue-800 leading-relaxed text-[11px]">
-                            Transfer sesuai nominal ke rekening SIMPAKI DJKI, lalu unggah bukti transfer di portal HKI UM BIMA.
+                            Transfer sesuai nominal ke rekening SIMPAKI DJKI, lalu unggah bukti transfer di portal KI UM BIMA.
                         </p>
                     </div>
                     <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 space-y-2">
@@ -326,7 +326,7 @@
     <div class="space-y-5">
         <div class="text-center space-y-1">
             <h2 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight">Status Permohonan</h2>
-            <p class="text-sm text-slate-500">Lacak perkembangan pengajuan HKI Anda setiap saat di dashboard</p>
+            <p class="text-sm text-slate-500">Lacak perkembangan pengajuan KI Anda setiap saat di dashboard</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             @foreach([
@@ -335,7 +335,7 @@
                 ['color' => 'indigo', 'icon' => '🔍', 'status' => 'Under Review', 'desc' => 'Admin sedang memeriksa'],
                 ['color' => 'orange', 'icon' => '💳', 'status' => 'Billing Issued', 'desc' => 'Kode billing diterbitkan'],
                 ['color' => 'purple', 'icon' => '💰', 'status' => 'Menunggu Bayar', 'desc' => 'Bukti transfer diunggah'],
-                ['color' => 'emerald', 'icon' => '✅', 'status' => 'Lunas & Terdaftar', 'desc' => 'Selesai! HKI terdaftar DJKI'],
+                ['color' => 'emerald', 'icon' => '✅', 'status' => 'Lunas & Terdaftar', 'desc' => 'Selesai! KI terdaftar DJKI'],
             ] as $st)
                 <div class="bg-{{ $st['color'] }}-50 border border-{{ $st['color'] }}-200 rounded-2xl p-4 text-center space-y-1.5">
                     <div class="text-2xl">{{ $st['icon'] }}</div>
@@ -359,7 +359,7 @@
                     Terintegrasi SIMPAKI DJKI
                 </h3>
                 <p class="text-sm text-slate-300 leading-relaxed">
-                    Portal Sentra HKI UM BIMA terhubung langsung dengan sistem <strong class="text-white">SIMPAKI (Sistem Informasi Paten, Merek, Cipta dan Kekayaan Intelektual)</strong> milik Direktorat Jenderal Kekayaan Intelektual (DJKI) Kementerian Hukum RI, sehingga setiap pengajuan memiliki nomor permohonan resmi yang sah secara hukum.
+                    Portal Direktorat Inovasi dan Kekayaan Intelektual (KI) UM Bima terhubung langsung dengan sistem <strong class="text-white">SIMPAKI (Sistem Informasi Paten, Merek, Cipta dan Kekayaan Intelektual)</strong> milik Direktorat Jenderal Kekayaan Intelektual (DJKI) Kementerian Hukum RI, sehingga setiap pengajuan memiliki nomor permohonan resmi yang sah secara hukum.
                 </p>
             </div>
             <div class="flex flex-col gap-3 shrink-0">
@@ -382,10 +382,10 @@
         <h2 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight text-center">Pertanyaan yang Sering Ditanyakan</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @foreach([
-                ['q' => 'Siapa yang bisa mengajukan HKI?', 'a' => 'Seluruh sivitas akademika UM BIMA — dosen, peneliti, mahasiswa aktif, dan tenaga kependidikan — serta mitra UMKM binaan UM BIMA.'],
+                ['q' => 'Siapa yang bisa mengajukan KI?', 'a' => 'Seluruh sivitas akademika UM BIMA — dosen, peneliti, mahasiswa aktif, dan tenaga kependidikan — serta mitra UMKM binaan UM BIMA.'],
                 ['q' => 'Berapa lama proses verifikasi akun?', 'a' => 'Biasanya 1–3 hari kerja. Notifikasi persetujuan dikirim otomatis via Email dan WhatsApp.'],
-                ['q' => 'Apa saja jenis HKI yang bisa diajukan?', 'a' => 'Paten, Paten Sederhana, Hak Cipta, Merek, Desain Industri, Indikasi Geografis, DTLST, dan Rahasia Dagang.'],
-                ['q' => 'Apakah bisa mengajukan lebih dari satu HKI?', 'a' => 'Ya! Satu akun dapat mengajukan banyak permohonan HKI. Semua draft tersimpan di dashboard Anda.'],
+                ['q' => 'Apa saja jenis KI yang bisa diajukan?', 'a' => 'Paten, Paten Sederhana, Hak Cipta, Merek, Desain Industri, Indikasi Geografis, DTLST, dan Rahasia Dagang.'],
+                ['q' => 'Apakah bisa mengajukan lebih dari satu KI?', 'a' => 'Ya! Satu akun dapat mengajukan banyak permohonan KI. Semua draft tersimpan di dashboard Anda.'],
                 ['q' => 'Berapa biaya PNBP SIMPAKI DJKI?', 'a' => 'Biaya bervariasi tergantung jenis dan kategori pemohon (UMKM, Perguruan Tinggi, Umum). Admin akan memberitahu besaran tagihan secara resmi.'],
                 ['q' => 'Bagaimana jika ada kesalahan dokumen?', 'a' => 'Dokumen dapat diganti kapan saja sebelum diverifikasi Admin. Cukup klik "Unggah Perubahan Dokumen" pada kartu yang bersangkutan.'],
             ] as $faq)

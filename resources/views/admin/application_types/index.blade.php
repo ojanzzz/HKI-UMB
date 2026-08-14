@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Master Tipe Permohonan HKI - Admin HKI UMB')
+@section('title', 'Master Tipe Permohonan KI - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto space-y-8 py-4">
@@ -10,17 +10,17 @@
             <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
                 MASTER DATA ADMINISTRATOR
             </span>
-            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Master Tipe Permohonan HKI</h2>
-            <p class="text-xs text-slate-500">Kelola opsi jenis permohonan HKI (Paten, Hak Cipta, Merek, Desain Industri, dll) yang dapat dipilih pengguna saat mengajukan permohonan baru.</p>
+            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Master Tipe Permohonan KI</h2>
+            <p class="text-xs text-slate-500">Kelola opsi jenis permohonan KI (Paten, Hak Cipta, Merek, Desain Industri, dll) yang dapat dipilih pengguna saat mengajukan permohonan baru.</p>
         </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- LEFT: FORM TAMBAH TIPE PERMOHONAN HKI BARU -->
+        <!-- LEFT: FORM TAMBAH TIPE PERMOHONAN KI BARU -->
         <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
             <h3 class="text-base font-extrabold text-slate-900 uppercase tracking-tight flex items-center gap-2 border-b border-slate-100 pb-3">
-                <span>➕</span> TAMBAH TIPE PERMOHONAN HKI
+                <span>➕</span> TAMBAH TIPE PERMOHONAN KI
             </h3>
 
             <form action="{{ route('admin.application-types.store') }}" method="POST" class="space-y-4 text-xs">
@@ -42,7 +42,7 @@
 
                 <div>
                     <label class="block font-bold text-slate-800 uppercase tracking-wide mb-1">Deskripsi / Keterangan</label>
-                    <textarea name="description" rows="3" placeholder="Keterangan singkat permohonan HKI..." class="w-full border border-slate-300 rounded-lg p-3 text-slate-900 font-medium focus:outline-none focus:border-emerald-600"></textarea>
+                    <textarea name="description" rows="3" placeholder="Keterangan singkat permohonan KI..." class="w-full border border-slate-300 rounded-lg p-3 text-slate-900 font-medium focus:outline-none focus:border-emerald-600"></textarea>
                 </div>
 
                 <div class="flex items-center space-x-2 pt-2">
@@ -57,11 +57,11 @@
             </form>
         </div>
 
-        <!-- RIGHT: TABEL MASTER DATA TIPE PERMOHONAN HKI -->
+        <!-- RIGHT: TABEL MASTER DATA TIPE PERMOHONAN KI -->
         <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
             <div class="bg-[#064E3B] text-white px-6 py-4 flex items-center justify-between">
                 <h3 class="text-xs font-extrabold uppercase tracking-wider flex items-center gap-2">
-                    <span>🏷️</span> DAFTAR TIPE PERMOHONAN HKI TERHUBUNG
+                    <span>🏷️</span> DAFTAR TIPE PERMOHONAN KI TERHUBUNG
                 </h3>
                 <span class="text-[10px] bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded font-extrabold uppercase">
                     TOTAL: {{ $types->count() }} TIPE
@@ -72,7 +72,7 @@
                 <table class="w-full text-xs text-left text-slate-700">
                     <thead class="bg-slate-50 text-slate-900 border-b border-slate-200 uppercase text-[10px] font-extrabold">
                         <tr>
-                            <th class="py-3 px-5">Nama Tipe HKI</th>
+                            <th class="py-3 px-5">Nama Tipe KI</th>
                             <th class="py-3 px-5">Kode</th>
                             <th class="py-3 px-5">Status</th>
                             <th class="py-3 px-5 text-center">Aksi Admin</th>
@@ -107,7 +107,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="py-8 text-center text-slate-500 font-medium">Belum ada tipe permohonan HKI yang ditambahkan.</td>
+                                <td colspan="4" class="py-8 text-center text-slate-500 font-medium">Belum ada tipe permohonan KI yang ditambahkan.</td>
                             </tr>
                         @endforelse
                     </tbody>

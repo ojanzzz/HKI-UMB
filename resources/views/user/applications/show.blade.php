@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dokumen Permohonan HKI - UM BIMA')
+@section('title', 'Dokumen Permohonan KI - UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto space-y-6 py-4">
@@ -13,7 +13,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                     <span class="inline-block bg-white/20 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider mb-2">
-                        PERMOHONAN HKI #{{ $application->id }}
+                        PERMOHONAN KI #{{ $application->id }}
                     </span>
                     <h2 class="text-xl font-extrabold text-white tracking-tight leading-tight">
                         {{ $application->title }}
@@ -172,7 +172,7 @@
     </div>
 
     {{-- =========================================================
-         8 FORMULIR DOKUMEN PATEN / HKI
+         8 FORMULIR DOKUMEN PATEN / KI
     ========================================================== --}}
     <div class="space-y-4">
         <div class="flex items-center justify-between px-1">

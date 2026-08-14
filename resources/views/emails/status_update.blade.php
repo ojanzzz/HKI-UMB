@@ -7,7 +7,7 @@
 <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; color: #0f172a;">
     <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
         <div style="background-color: #064E3B; color: #ffffff; padding: 20px 24px; text-align: left;">
-            <h1 style="margin: 0; font-size: 18px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">Sentra HKI UM BIMA</h1>
+            <h1 style="margin: 0; font-size: 16px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">Direktorat Inovasi & KI UM Bima</h1>
             <p style="margin: 4px 0 0 0; font-size: 11px; color: #a7f3d0; text-transform: uppercase; font-weight: 600;">Universitas Muhammadiyah Bima</p>
         </div>
         
@@ -22,18 +22,18 @@
             @if(!empty($actionUrl))
                 <div style="text-align: center; margin: 28px 0;">
                     <a href="{{ $actionUrl }}" style="background-color: #064E3B; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 13px; display: inline-block; text-transform: uppercase;">
-                        Buka Dashboard HKI UM BIMA &rarr;
+                        Buka Dashboard KI UM BIMA &rarr;
                     </a>
                 </div>
             @endif
 
             <p style="margin-bottom: 0; font-size: 12px; color: #64748b;">
-                Pesan ini dikirimkan secara otomatis oleh Sistem Informasi HKI Universitas Muhammadiyah Bima.
+                Pesan ini dikirimkan secara otomatis oleh Sistem Informasi KI Universitas Muhammadiyah Bima.
             </p>
         </div>
 
         <div style="background-color: #f1f5f9; padding: 16px 24px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0;">
-            &copy; {{ date('Y') }} Sentra HKI Universitas Muhammadiyah Bima (UM BIMA)
+            &copy; {{ date('Y') }} Direktorat Inovasi dan Kekayaan Intelektual (KI) UM Bima
         </div>
     </div>
 </body>

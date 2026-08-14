@@ -73,7 +73,7 @@ class DummyDataSeeder extends Seeder
 
         // 3. Create Users
         $admin = User::create([
-            'name' => 'Administrator Sentra HKI UM BIMA',
+            'name' => 'Administrator Direktorat Inovasi & KI UM Bima',
             'email' => 'admin@umb.ac.id',
             'role' => 'admin',
             'nik' => '5206010101880001',

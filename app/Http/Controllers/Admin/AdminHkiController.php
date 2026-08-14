@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\ApplicationCategory;
 use App\Models\ApplicationType;
+use App\Models\DocumentTemplate;
 use App\Models\Faculty;
 use App\Models\HkiApplication;
 use App\Models\HkiDocument;
@@ -65,7 +66,7 @@ class AdminHkiController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->back()->with('success', 'Kategori Pengajuan HKI berhasil ditambahkan.');
+        return redirect()->back()->with('success', 'Kategori Pengajuan KI berhasil ditambahkan.');
     }
 
     public function updateApplicationCategory(Request $request, ApplicationCategory $category)
@@ -83,13 +84,13 @@ class AdminHkiController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->back()->with('success', 'Kategori Pengajuan HKI berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Kategori Pengajuan KI berhasil diperbarui.');
     }
 
     public function deleteApplicationCategory(ApplicationCategory $category)
     {
         $category->delete();
-        return redirect()->back()->with('success', 'Kategori Pengajuan HKI berhasil dihapus.');
+        return redirect()->back()->with('success', 'Kategori Pengajuan KI berhasil dihapus.');
     }
 
     // ==========================================
@@ -263,7 +264,7 @@ class AdminHkiController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->back()->with('success', 'Tipe Permohonan HKI berhasil ditambahkan.');
+        return redirect()->back()->with('success', 'Tipe Permohonan KI berhasil ditambahkan.');
     }
 
     public function updateApplicationType(Request $request, ApplicationType $type)
@@ -281,13 +282,13 @@ class AdminHkiController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->back()->with('success', 'Tipe Permohonan HKI berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Tipe Permohonan KI berhasil diperbarui.');
     }
 
     public function deleteApplicationType(ApplicationType $type)
     {
         $type->delete();
-        return redirect()->back()->with('success', 'Tipe Permohonan HKI berhasil dihapus.');
+        return redirect()->back()->with('success', 'Tipe Permohonan KI berhasil dihapus.');
     }
 
     // ==========================================
@@ -359,7 +360,7 @@ class AdminHkiController extends Controller
             $user,
             'USER_APPROVED',
             'Akun Pengguna Disetujui (Approved)',
-            "Selamat! Akun Pemohon HKI Anda telah diverifikasi dan disetujui oleh Administrator Sentra HKI UM BIMA. Anda sekarang dapat membuat dan mengajukan permohonan HKI Baru.",
+            "Selamat! Akun Pemohon KI Anda telah diverifikasi dan disetujui oleh Administrator Direktorat Inovasi & KI UM Bima. Anda sekarang dapat membuat dan mengajukan permohonan KI Baru.",
             route('user.dashboard')
         );
 
@@ -376,7 +377,7 @@ class AdminHkiController extends Controller
             $user,
             'USER_REJECTED',
             'Akun Pengguna Ditolak (Rejected)',
-            "Pendaftaran akun Anda tidak disetujui. Silakan hubungi Administrator Sentra HKI UM BIMA untuk informasi lebih lanjut.",
+            "Pendaftaran akun Anda tidak disetujui. Silakan hubungi Administrator Direktorat Inovasi & KI UM Bima untuk informasi lebih lanjut.",
             route('home')
         );
 
@@ -443,36 +444,82 @@ class AdminHkiController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'image' => 'required|image|max:3072',
+            'subtitle' => 'nullable|string|max:1000',
+            'badge' => 'nullable|string|max:100',
+            'image' => 'nullable|image|max:5120',
             'link_url' => 'nullable|url',
+            'order' => 'nullable|integer',
         ]);
 
-        $imagePath = $request->file('image')->store('sliders', 'public');
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('sliders', 'public');
+        }
 
         Slider::create([
             'title' => $request->title,
             'subtitle' => $request->subtitle,
+            'badge' => $request->badge ?: 'INFO INOVASI UM BIMA',
             'image_path' => $imagePath,
             'link_url' => $request->link_url,
+            'order' => $request->order ?? 0,
             'is_active' => $request->has('is_active'),
         ]);
 
-        return redirect()->back()->with('success', 'Slider Banner berhasil ditambahkan.');
+        ActivityLog::log('CREATE_SLIDER', "Admin " . Auth::user()->name . " menambahkan slider baru: {$request->title}.");
+
+        return redirect()->back()->with('success', 'Slider Banner baru berhasil ditambahkan.');
+    }
+
+    public function updateSlider(Request $request, Slider $slider)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:1000',
+            'badge' => 'nullable|string|max:100',
+            'image' => 'nullable|image|max:5120',
+            'link_url' => 'nullable|url',
+            'order' => 'nullable|integer',
+        ]);
+
+        $data = [
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'badge' => $request->badge ?: 'INFO INOVASI UM BIMA',
+            'link_url' => $request->link_url,
+            'order' => $request->order ?? 0,
+            'is_active' => $request->has('is_active'),
+        ];
+
+        if ($request->hasFile('image')) {
+            if ($slider->image_path && Storage::disk('public')->exists($slider->image_path)) {
+                Storage::disk('public')->delete($slider->image_path);
+            }
+            $data['image_path'] = $request->file('image')->store('sliders', 'public');
+        }
+
+        $slider->update($data);
+
+        ActivityLog::log('UPDATE_SLIDER', "Admin " . Auth::user()->name . " memperbarui slider: {$slider->title}.");
+
+        return redirect()->back()->with('success', 'Data Slider Banner berhasil diperbarui.');
     }
 
     public function toggleSlider(Slider $slider)
     {
         $slider->update(['is_active' => !$slider->is_active]);
+        ActivityLog::log('TOGGLE_SLIDER', "Admin " . Auth::user()->name . " mengubah status aktif slider: {$slider->title}.");
         return redirect()->back()->with('success', 'Status aktif Slider berhasil diubah.');
     }
 
     public function deleteSlider(Slider $slider)
     {
+        $title = $slider->title;
         if ($slider->image_path && Storage::disk('public')->exists($slider->image_path)) {
             Storage::disk('public')->delete($slider->image_path);
         }
         $slider->delete();
+        ActivityLog::log('DELETE_SLIDER', "Admin " . Auth::user()->name . " menghapus slider: {$title}.");
         return redirect()->back()->with('success', 'Slider Banner berhasil dihapus.');
     }
 
@@ -610,5 +657,60 @@ class AdminHkiController extends Controller
         );
 
         return redirect()->back()->with('success', 'Pembayaran berhasil diverifikasi. Kuitansi PDF otomatis telah terbit dan notifikasi multi-channel dikirim!');
+    }
+
+    /**
+     * Tampilkan Daftar Manajemen Template Dokumen Pengajuan Admin.
+     */
+    public function templatesIndex()
+    {
+        $templates = DocumentTemplate::orderBy('id', 'asc')->get();
+        return view('admin.templates.index', compact('templates'));
+    }
+
+    /**
+     * Update / Upload replacement file fisik template resmi oleh Admin.
+     */
+    public function updateTemplate(Request $request, DocumentTemplate $template)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'template_file' => 'nullable|file|mimes:docx,doc,pdf|max:10240',
+        ], [
+            'title.required' => 'Judul template dokumen wajib diisi.',
+            'template_file.mimes' => 'Format file template harus berupa .docx, .doc, atau .pdf.',
+            'template_file.max' => 'Ukuran file template maksimal 10MB.',
+        ]);
+
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'is_active' => $request->has('is_active'),
+        ];
+
+        if ($request->hasFile('template_file')) {
+            $file = $request->file('template_file');
+            $originalName = $file->getClientOriginalName();
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            // Remove old file if stored
+            if ($template->file_path && Storage::disk('public')->exists($template->file_path)) {
+                Storage::disk('public')->delete($template->file_path);
+            }
+
+            // Store new file to storage/app/public/document_templates
+            $path = $file->storeAs('document_templates', $template->code . '_' . time() . '.' . $ext, 'public');
+
+            $data['file_path'] = $path;
+            $data['file_name'] = $originalName;
+            $data['file_type'] = $ext;
+        }
+
+        $template->update($data);
+
+        ActivityLog::log('UPDATE_TEMPLATE', "Admin " . Auth::user()->name . " memperbarui template dokumen '{$template->title}' ({$template->code}).");
+
+        return redirect()->back()->with('success', 'Template dokumen ' . $template->title . ' berhasil diperbarui!');
     }
 }

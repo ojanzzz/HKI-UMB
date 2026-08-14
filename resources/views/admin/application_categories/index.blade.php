@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Master Kategori Pengajuan HKI - Admin HKI UMB')
+@section('title', 'Master Kategori Pengajuan KI - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto space-y-8 py-4">
@@ -10,7 +10,7 @@
             <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
                 MASTER DATA ADMINISTRATOR
             </span>
-            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Master Kategori Pengajuan HKI</h2>
+            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Master Kategori Pengajuan KI</h2>
             <p class="text-xs text-slate-500">Kelola opsi kategori pengajuan (UMKM, Perguruan Tinggi, Umum, Lembaga Litbang, dll) yang dapat dipilih pengguna saat mengajukan permohonan baru.</p>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dashboard Admin - HKI UMB')
+@section('title', 'Dashboard Admin - KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-8 space-y-8">
@@ -8,7 +8,7 @@
         <span class="bg-red-600 text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
             PANEL ADMINISTRATOR
         </span>
-        <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Dashboard Sentra HKI UMB</h2>
+        <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Dashboard Direktorat Inovasi & KI UM Bima</h2>
         <p class="text-xs text-slate-500">Kelola verifikasi akun, review 8 dokumen, export ZIP DJKI, dan pembayaran SIMPAKI.</p>
     </div>
 
@@ -28,7 +28,7 @@
         <a href="{{ route('admin.applications') }}" class="bg-white p-6 rounded-xl border border-slate-200 hover:border-red-500 shadow-xs hover:shadow-md transition-all">
             <div class="flex justify-between items-center">
                 <div>
-                    <div class="text-xs font-bold text-slate-500 uppercase">Total Pengajuan HKI</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase">Total Pengajuan KI</div>
                     <div class="text-3xl font-extrabold text-[#002855] mt-1">{{ $totalApplicationsCount }}</div>
                 </div>
                 <div class="w-12 h-12 bg-blue-50 text-[#002855] rounded-lg flex items-center justify-center font-bold text-xl">📄</div>
@@ -51,7 +51,7 @@
     <!-- Recent Applications Table -->
     <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
         <div class="bg-[#002855] text-white px-6 py-4 flex justify-between items-center">
-            <h3 class="font-extrabold uppercase text-xs tracking-wider">Permohonan HKI Terbaru</h3>
+            <h3 class="font-extrabold uppercase text-xs tracking-wider">Permohonan KI Terbaru</h3>
             <a href="{{ route('admin.applications') }}" class="text-xs text-blue-200 hover:text-white font-bold uppercase">Lihat Semua</a>
         </div>
 
@@ -88,7 +88,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="py-6 text-center text-slate-500">Belum ada permohonan HKI masuk.</td>
+                            <td colspan="5" class="py-6 text-center text-slate-500">Belum ada permohonan KI masuk.</td>
                         </tr>
                     @endforelse
                 </tbody>

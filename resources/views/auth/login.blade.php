@@ -1,20 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Login Sistem Informasi HKI UMB')
+@section('title', 'Login Sistem Informasi KI UM BIMA')
 
 @section('content')
-<div class="max-w-md mx-auto my-10 p-6 bg-white rounded-xl border border-slate-200 shadow-md">
-    <div class="text-center mb-6">
-        <div class="w-14 h-14 bg-[#002855] text-white rounded-lg mx-auto flex items-center justify-center font-extrabold text-xs mb-3 shadow-sm">
-            DJKI<br>UMB
-        </div>
-        <h2 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight">Login Portal HKI UMB</h2>
+<div class="max-w-md mx-auto my-12 p-8 bg-white rounded-2xl border border-slate-200 shadow-xl text-center">
+    <div class="mb-6">
+        <img src="{{ asset('logo/logo.png') }}" alt="Logo KI UMB" class="w-16 h-16 object-contain mx-auto mb-3 drop-shadow-sm">
+        <h2 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight">Login Portal KI UM BIMA</h2>
         <p class="text-xs text-slate-500 mt-1">Masuk dengan Email & Password atau Akun Google SSO</p>
     </div>
 
     <!-- Form Login Biasa (Email & Password) -->
-    <form action="{{ route('login.post') }}" method="POST" class="space-y-4 text-xs mb-6">
+    <form id="loginForm" action="{{ route('login.post') }}" method="POST" class="space-y-4 text-xs mb-6">
         @csrf
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
         <div>
             <label for="email" class="block font-bold text-slate-700 uppercase tracking-wide mb-1">Email <span class="text-red-600">*</span></label>
             <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email@umb.ac.id" class="w-full border border-slate-300 rounded-md py-2.5 px-3 text-slate-900 focus:outline-none focus:border-red-600 font-medium">
@@ -37,6 +36,13 @@
         <button type="submit" class="w-full bg-[#002855] hover:bg-[#003366] text-white py-3 px-4 rounded-md font-bold text-xs uppercase tracking-wider transition shadow-sm">
             MASUK APLIKASI
         </button>
+
+        <div class="pt-2 text-center text-xs text-slate-500">
+            Belum memiliki akun pemohon?
+            <a href="{{ route('register') }}" class="font-extrabold text-[#064E3B] hover:text-[#047857] underline">
+                Daftar Akun Baru
+            </a>
+        </div>
     </form>
 
     <div class="relative flex py-2 items-center mb-4">
@@ -71,11 +77,33 @@
 </div>
 
 @push('scripts')
+@if(config('services.recaptcha.site_key'))
+<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+@endif
 <script>
     function fillLogin(email, password) {
         document.getElementById('email').value = email;
         document.getElementById('password').value = password;
     }
+
+    @if(config('services.recaptcha.site_key'))
+    document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+        var siteKey = @json(config('services.recaptcha.site_key'));
+        if (siteKey && typeof grecaptcha !== 'undefined') {
+            e.preventDefault();
+            var form = this;
+            grecaptcha.ready(function() {
+                grecaptcha.execute(siteKey, {action: 'login'}).then(function(token) {
+                    document.getElementById('g-recaptcha-response').value = token;
+                    form.submit();
+                }).catch(function(err) {
+                    console.error('reCAPTCHA error:', err);
+                    form.submit();
+                });
+            });
+        }
+    });
+    @endif
 </script>
 @endpush
 @endsection

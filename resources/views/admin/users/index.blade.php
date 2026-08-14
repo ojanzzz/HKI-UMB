@@ -1,17 +1,15 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Verifikasi Akun Pemohon - Admin HKI UMB')
+@section('title', 'Verifikasi Akun Pemohon - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-8 space-y-6">
-    <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
-        <div>
-            <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
-                ADMINISTRASI USER
-            </span>
-            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Verifikasi Akun Pemohon HKI</h2>
-            <p class="text-xs text-slate-500">Approve atau Reject pendaftaran pemohon baru yang telah melengkapi NIK, KTP, dan No. WA.</p>
-        </div>
+    <div class="border-b border-slate-200 pb-4">
+        <span class="bg-red-600 text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
+            PANEL VERIFIKASI AKUN
+        </span>
+        <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Verifikasi Akun Pemohon KI</h2>
+        <p class="text-xs text-slate-500">Approve atau Reject pendaftaran pemohon baru yang telah melengkapi NIK, KTP, dan No. WA.</p>
     </div>
 
     <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">

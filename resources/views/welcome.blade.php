@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Beranda - Sentra HKI Universitas Muhammadiyah Bima')
+@section('title', 'Beranda - Direktorat Inovasi dan Kekayaan Intelektual (KI) UM Bima')
 
 @section('content')
 <!-- HERO SECTION: LEFT SLIDER BANNER & RIGHT PDKI SEARCH BOX (per UI DJKI Screenshot) -->
@@ -13,14 +13,43 @@
                 @if(isset($sliders) && $sliders->isNotEmpty())
                     @foreach($sliders as $index => $slider)
                         <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0' }}">
-                            <img src="{{ asset('storage/' . $slider->image_path) }}" alt="{{ $slider->title }}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/40 to-transparent p-6 md:p-8 flex flex-col justify-end">
-                                <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider w-fit mb-2">INFO INOVASI UM BIMA</span>
-                                <h3 class="text-xl md:text-2xl font-extrabold text-white leading-tight uppercase">{{ $slider->title }}</h3>
-                                @if($slider->subtitle)
-                                    <p class="text-xs text-emerald-100 mt-1 line-clamp-2">{{ $slider->subtitle }}</p>
-                                @endif
-                            </div>
+                            @if($slider->image_path)
+                                <img src="{{ asset('storage/' . $slider->image_path) }}" alt="{{ $slider->title }}" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/40 to-transparent p-6 md:p-8 flex flex-col justify-end">
+                                    <span class="bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider w-fit mb-2">
+                                        {{ $slider->badge ?? 'INFO INOVASI UM BIMA' }}
+                                    </span>
+                                    <h3 class="text-xl md:text-2xl font-extrabold text-white leading-tight uppercase">{{ $slider->title }}</h3>
+                                    @if($slider->subtitle)
+                                        <p class="text-xs text-emerald-100 mt-1 line-clamp-2">{{ $slider->subtitle }}</p>
+                                    @endif
+                                    @if($slider->link_url)
+                                        <a href="{{ $slider->link_url }}" target="_blank" class="mt-3 inline-flex items-center text-xs font-bold text-amber-300 hover:text-amber-200 uppercase tracking-wider">
+                                            Selengkapnya &rarr;
+                                        </a>
+                                    @endif
+                                </div>
+                            @else
+                                <!-- Text-Only Slider Banner -->
+                                <div class="w-full h-full bg-gradient-to-br from-[#065F46] via-[#047857] to-[#064E3B] p-8 flex flex-col justify-center space-y-4">
+                                     <div class="inline-flex items-center space-x-2 bg-amber-500/20 border border-amber-400/40 text-amber-300 px-3 py-1 rounded text-xs font-extrabold tracking-wider uppercase w-fit">
+                                         {{ $slider->badge ?? 'DIREKTORAT INOVASI DAN KEKAYAAN INTELEKTUAL (KI) UM BIMA' }}
+                                     </div>
+                                    <h2 class="text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                                        {{ $slider->title }}
+                                    </h2>
+                                    @if($slider->subtitle)
+                                        <p class="text-xs md:text-sm text-emerald-100 leading-relaxed max-w-xl">
+                                            {{ $slider->subtitle }}
+                                        </p>
+                                    @endif
+                                    @if($slider->link_url)
+                                        <a href="{{ $slider->link_url }}" target="_blank" class="inline-block bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded text-xs font-extrabold uppercase tracking-wider w-fit shadow-xs transition">
+                                            Pelajari Selengkapnya &rarr;
+                                        </a>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     @endforeach
                 @else
@@ -28,7 +57,7 @@
                     <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 z-10">
                         <div class="w-full h-full bg-gradient-to-br from-[#065F46] to-[#047857] p-8 flex flex-col justify-center space-y-4">
                             <div class="inline-flex items-center space-x-2 bg-amber-500/20 border border-amber-400/40 text-amber-300 px-3 py-1 rounded text-xs font-extrabold tracking-wider uppercase w-fit">
-                                SENTRA HKI UNIVERSITAS MUHAMMADIYAH BIMA
+                                DIREKTORAT INOVASI DAN KEKAYAAN INTELEKTUAL (KI) UM BIMA
                             </div>
                             <h2 class="text-2xl md:text-3xl font-extrabold text-white leading-tight">
                                 IP Marketplace & Pangkalan Data Kekayaan Intelektual UM BIMA
@@ -111,7 +140,7 @@
         <!-- Table Header Bar Deep Emerald Green -->
         <div class="bg-[#064E3B] text-white px-6 py-4 flex items-center justify-between">
             <h3 class="text-base font-extrabold uppercase tracking-wide flex items-center gap-2">
-                <span>📋</span> DAFTAR SEMUA AJUAN PERMOHONAN HKI UM BIMA
+                <span>📋</span> DAFTAR SEMUA AJUAN PERMOHONAN KI UM BIMA
             </h3>
             <span class="text-xs bg-emerald-900 text-emerald-200 px-3 py-1 rounded font-semibold border border-emerald-700">
                 Publik & Sivitas UM BIMA
@@ -182,7 +211,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-slate-500 font-medium">Belum ada ajuan permohonan HKI yang terdaftar.</td>
+                            <td colspan="6" class="py-8 text-center text-slate-500 font-medium">Belum ada ajuan permohonan KI yang terdaftar.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -198,8 +227,8 @@
 <!-- MENU UTAMA & LAYANAN DJKI -->
 <section class="max-w-7xl mx-auto px-6 py-8">
     <div class="mb-6 text-center">
-        <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight">Kategori Layanan Hak Kekayaan Intelektual UM BIMA</h2>
-        <p class="text-xs text-slate-500 mt-1">Pilih kategori permohonan HKI yang ingin Anda daftarkan melalui Sentra HKI Universitas Muhammadiyah Bima</p>
+        <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight">Kategori Layanan Kekayaan Intelektual UM BIMA</h2>
+        <p class="text-xs text-slate-500 mt-1">Pilih kategori permohonan KI yang ingin Anda daftarkan melalui Direktorat Inovasi dan Kekayaan Intelektual (KI) UM Bima</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Manajemen User & Admin - Admin HKI UMB')
+@section('title', 'Manajemen User & Admin - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto space-y-8 py-4">
@@ -180,7 +180,7 @@
 
             <div>
                 <label class="block font-bold text-slate-800 uppercase mb-1">Nama Lengkap Administrator <span class="text-red-600">*</span></label>
-                <input type="text" name="name" required placeholder="Contoh: Admin Sentra HKI 2" class="w-full border border-slate-300 rounded-lg p-2.5 text-slate-900 font-medium">
+                <input type="text" name="name" required placeholder="Contoh: Admin Direktorat Inovasi 2" class="w-full border border-slate-300 rounded-lg p-2.5 text-slate-900 font-medium">
             </div>
 
             <div>

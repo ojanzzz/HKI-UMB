@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dashboard Pemohon HKI - Sentra HKI UM BIMA')
+@section('title', 'Dashboard Pemohon KI - Direktorat Inovasi & KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-8 space-y-8">
@@ -9,11 +9,11 @@
             <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
                 PORTAL PEMOHON
             </span>
-            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Daftar Pengajuan Paten & HKI Saya</h2>
-            <p class="text-xs text-slate-500">Satu akun dapat mengajukan beberapa permohonan HKI. Kelola draft dan lacak status dokumen Anda di sini.</p>
+            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Daftar Pengajuan Paten & KI Saya</h2>
+            <p class="text-xs text-slate-500">Satu akun dapat mengajukan beberapa permohonan KI. Kelola draft dan lacak status dokumen Anda di sini.</p>
         </div>
         <a href="{{ route('applications.create') }}" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition shadow-xs flex items-center space-x-2">
-            <span>+ AJUKAN PATEN / HKI BARU</span>
+            <span>+ AJUKAN PATEN / KI BARU</span>
         </a>
     </div>
 
@@ -22,10 +22,10 @@
             <div class="w-16 h-16 bg-emerald-50 text-[#064E3B] rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl font-extrabold">
                 📂
             </div>
-            <h3 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">Belum Ada Permohonan HKI</h3>
-            <p class="text-xs text-slate-500 max-w-sm mx-auto">Anda belum mendaftarkan permohonan HKI. Klik tombol di bawah untuk membuat pengajuan pertama Anda.</p>
+            <h3 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">Belum Ada Permohonan KI</h3>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto">Anda belum mendaftarkan permohonan KI. Klik tombol di bawah untuk membuat pengajuan pertama Anda.</p>
             <a href="{{ route('applications.create') }}" class="inline-block bg-[#064E3B] hover:bg-[#047857] text-white px-6 py-2.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition shadow-xs">
-                + Ajukan Permohonan HKI Baru
+                + Ajukan Permohonan KI Baru
             </a>
         </div>
     @else

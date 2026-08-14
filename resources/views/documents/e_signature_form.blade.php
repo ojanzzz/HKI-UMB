@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'E-Signature & Generator Surat - Sistem Informasi HKI UMB')
+@section('title', 'E-Signature & Generator Surat - Sistem Informasi KI UM BIMA')
 
 @section('content')
 <div class="max-w-4xl mx-auto my-8 p-6 bg-white rounded-xl border border-slate-200 shadow-md">

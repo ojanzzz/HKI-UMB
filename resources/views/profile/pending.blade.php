@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Menunggu Approval Admin - Sistem Informasi HKI UMB')
+@section('title', 'Menunggu Approval Admin - Sistem Informasi KI UMB')
 
 @section('content')
 <div class="max-w-xl mx-auto my-12 p-8 bg-white rounded-xl border border-slate-200 shadow-md text-center">
@@ -12,7 +12,7 @@
     </span>
     <h2 class="text-xl font-extrabold text-slate-900 uppercase tracking-tight mt-3">Akun Anda Dalam Proses Pengawasan Admin</h2>
     <p class="text-xs text-slate-600 leading-relaxed mt-2 max-w-md mx-auto">
-        Terima kasih telah melengkapi profil Anda, <span class="font-bold text-slate-900">{{ $user->name }}</span>. Administrator Sentra HKI UMB sedang melakukan pengecekan data identitas (<span class="font-semibold">{{ $user->identity_number }}</span> - {{ $user->faculty }}).
+        Terima kasih telah melengkapi profil Anda, <span class="font-bold text-slate-900">{{ $user->name }}</span>. Administrator Direktorat Inovasi & KI UM Bima sedang melakukan pengecekan data identitas (<span class="font-semibold">{{ $user->identity_number }}</span> - {{ $user->faculty }}).
     </p>
 
     <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mt-6 text-left text-xs space-y-2">
@@ -36,7 +36,7 @@
     </div>
 
     <div class="mt-6 text-xs text-slate-500">
-        Setelah akun disetujui (Approved) oleh Admin, Anda akan otomatis dapat mengakses seluruh menu pengajuan HKI dan E-Signature.
+        Setelah akun disetujui (Approved) oleh Admin, Anda akan otomatis dapat mengakses seluruh menu pengajuan KI dan E-Signature.
     </div>
 
     <div class="mt-6 flex justify-center gap-3">

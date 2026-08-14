@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'FAQ Pertanyaan Umum - HKI UM BIMA')
+@section('title', 'FAQ Pertanyaan Umum - KI UM BIMA')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-6 py-10 space-y-8">
-    <div class="border-b border-slate-200 pb-4">
-        <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
-            FREQUENTLY ASKED QUESTIONS
+<div class="max-w-4xl mx-auto px-6 py-12 space-y-8">
+    <div class="border-b border-slate-200 pb-4 text-center">
+        <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-3 py-1 rounded uppercase tracking-wider">
+            PUSAT BANTUAN & FAQ
         </span>
-        <h2 class="text-3xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Pertanyaan Umum (FAQ) HKI</h2>
+        <h2 class="text-3xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Pertanyaan Umum (FAQ) KI</h2>
         <p class="text-xs text-slate-500 mt-1">Temukan jawaban atas pertanyaan seputar pendaftaran Paten, E-Signature, dan SIMPAKI.</p>
     </div>
 
@@ -38,7 +38,7 @@
         <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
             <h3 class="font-extrabold text-slate-900 text-sm uppercase mb-2">4. Mengapa akun saya berstatus 'Pending'?</h3>
             <p class="text-slate-600 leading-relaxed">
-                Setiap pendaftar baru perlu melengkapi identitas (NIK/NIM/NIP, Fakultas, WA). Akun di-set ke status pending hingga Admin Sentra HKI UM BIMA melakukan approval demi memastikan keabsahan sivitas akademika.
+                Setiap pendaftar baru perlu melengkapi identitas (NIK/NIM/NIP, Fakultas, WA). Akun di-set ke status pending hingga Admin Direktorat Inovasi & KI UM Bima melakukan approval demi memastikan keabsahan sivitas akademika.
             </p>
         </div>
     </div>

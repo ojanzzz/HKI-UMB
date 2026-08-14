@@ -8,6 +8,7 @@ use App\Models\HkiApplication;
 use App\Models\HkiDocument;
 use App\Models\Payment;
 use App\Services\MultiChannelAlertService;
+use App\Models\DocumentTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -105,17 +106,17 @@ class HkiApplicationController extends Controller
             ]);
         }
 
-        ActivityLog::log('CREATE_APPLICATION', "Pengguna membuat permohonan HKI baru (#{$application->id}: {$application->title}).");
+        ActivityLog::log('CREATE_APPLICATION', "Pengguna membuat permohonan KI baru (#{$application->id}: {$application->title}).");
 
         MultiChannelAlertService::notifyAdmins(
             'APPLICATION_SUBMITTED',
-            'Permohonan HKI Baru Dibuat',
-            "Pengguna " . Auth::user()->name . " telah membuat permohonan HKI baru (#{$application->id}: {$application->title}).",
+            'Permohonan KI Baru Dibuat',
+            "Pengguna " . Auth::user()->name . " telah membuat permohonan KI baru (#{$application->id}: {$application->title}).",
             route('admin.applications.show', $application->id)
         );
 
         return redirect()->route('applications.show', $application->id)
-            ->with('success', 'Permohonan HKI berhasil dibuat. Silakan unduh template formulir dan unggah dokumen Anda.');
+            ->with('success', 'Permohonan KI berhasil dibuat. Silakan unduh template formulir dan unggah dokumen Anda.');
     }
 
     /**
@@ -209,10 +210,20 @@ class HkiApplicationController extends Controller
     }
 
     /**
-     * Unduh Template Formulir Word (.docx) untuk Dokumen Paten / HKI.
+     * Unduh Template Formulir Word (.docx) / PDF untuk Dokumen Paten / KI.
+     * Mengambil file fisik template resmi yang telah diunggah oleh Admin di Database.
      */
     public function downloadTemplate($docType)
     {
+        // 1. Cek apakah ada record di tabel document_templates
+        $dbTemplate = DocumentTemplate::where('code', $docType)->first();
+
+        if ($dbTemplate && $dbTemplate->file_path && Storage::disk('public')->exists($dbTemplate->file_path)) {
+            $downloadName = $dbTemplate->file_name ?: ($dbTemplate->title . '.' . ($dbTemplate->file_type ?: 'docx'));
+            return Storage::disk('public')->download($dbTemplate->file_path, $downloadName);
+        }
+
+        // 2. Fallback jika admin belum unggah file fisik custom
         if (!array_key_exists($docType, self::TEMPLATES_MAP)) {
             abort(404, 'Template dokumen tidak ditemukan.');
         }
@@ -221,14 +232,77 @@ class HkiApplicationController extends Controller
         $filename = $templateInfo['file'];
         $templatePath = Storage::disk('public')->path('templates/' . $filename);
 
-        if (!file_exists($templatePath)) {
-            Storage::disk('public')->makeDirectory('templates');
-            file_put_contents($templatePath, "FORMULIR TEMPLATE OFFICIAL HKI UM BIMA\nJENIS DOKUMEN: " . $templateInfo['label'] . "\n\nSilakan isi data invensi/permohonan Anda dan unggah kembali file ini ke portal HKI UM BIMA.");
+        if (!file_exists($templatePath) || filesize($templatePath) < 1000) {
+            $this->createValidDocxFile($templatePath, $templateInfo['label']);
         }
 
         return response()->download($templatePath, $filename, [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         ]);
+    }
+
+    /**
+     * Membuat file Microsoft Word (.docx) binary valid yang bisa dibuka oleh MS Word.
+     */
+    private function createValidDocxFile($filePath, $label)
+    {
+        $dir = dirname($filePath);
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        // Emergency overwrite if file exists but is invalid plain text (< 1000 bytes)
+        if (file_exists($filePath) && filesize($filePath) < 1000) {
+            @unlink($filePath);
+        }
+
+        $zip = new \ZipArchive();
+        if ($zip->open($filePath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+            $contentTypes = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+    <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+    <Default Extension="xml" ContentType="application/xml"/>
+    <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+</Types>';
+
+            $rels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+    <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+</Relationships>';
+
+            $docXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+    <w:body>
+        <w:p>
+            <w:r>
+                <w:rPr><w:b/><w:sz w:val="28"/><w:color w:val="064E3B"/></w:rPr>
+                <w:t>FORMULIR TEMPLATE RESMI KI UM BIMA</w:t>
+            </w:r>
+        </w:p>
+        <w:p>
+            <w:r>
+                <w:rPr><w:b/><w:sz w:val="24"/></w:rPr>
+                <w:t>JENIS DOKUMEN: ' . htmlspecialchars($label) . '</w:t>
+            </w:r>
+        </w:p>
+        <w:p/>
+        <w:p>
+            <w:r>
+                <w:t>Petunjuk Pengisian: Silakan lengkapi formulir dokumen ini sesuai dengan ketentuan pengajuan Kekayaan Intelektual (KI) Universitas Muhammadiyah Bima, kemudian unggah kembali file ini pada portal KI UM BIMA.</w:t>
+            </w:r>
+        </w:p>
+    </w:body>
+</w:document>';
+
+            $docRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/>';
+
+            $zip->addFromString('[Content_Types].xml', $contentTypes);
+            $zip->addFromString('_rels/.rels', $rels);
+            $zip->addFromString('word/document.xml', $docXml);
+            $zip->addFromString('word/_rels/document.xml.rels', $docRels);
+            $zip->close();
+        }
     }
 
     /**
@@ -285,7 +359,7 @@ class HkiApplicationController extends Controller
             $application->update(['status' => 'submitted']);
             MultiChannelAlertService::notifyAdmins(
                 'ALL_DOCUMENTS_UPLOADED',
-                '8 Dokumen HKI Lengkap',
+                '8 Dokumen KI Lengkap',
                 "Permohonan #{$application->id} ('{$application->title}') telah melengkapi seluruh 8 dokumen. Siap di-review dan di-export.",
                 route('admin.applications.show', $application->id)
             );

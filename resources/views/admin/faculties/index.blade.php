@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Kelola Fakultas & Unit Kerja - Admin HKI UM BIMA')
+@section('title', 'Kelola Fakultas & Unit Kerja - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-6 space-y-8">
@@ -8,10 +8,10 @@
     <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
             <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
-                MASTER DATA INSTITUSI
+                MASTER DATA DIREKTORAT
             </span>
             <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Kelola Fakultas & Unit Kerja</h2>
-            <p class="text-xs text-slate-500">Manajemen daftar fakultas dan unit kerja di Universitas Muhammadiyah Bima yang terhubung dengan akun pemohon HKI.</p>
+            <p class="text-xs text-slate-500">Manajemen daftar fakultas dan unit kerja di Universitas Muhammadiyah Bima yang terhubung dengan akun pemohon KI.</p>
         </div>
     </div>
 

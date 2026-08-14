@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Pengajuan Baru HKI - Sentra HKI UM BIMA')
+@section('title', 'Pengajuan Baru KI - Direktorat Inovasi & KI UM BIMA')
 
 @section('content')
 <div class="max-w-6xl mx-auto space-y-6 py-2">
@@ -15,7 +15,7 @@
             <a href="{{ route('faq') }}" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition">
                 Bantuan
             </a>
-            <button type="button" onclick="document.getElementById('applicationForm').submit()" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold px-6 py-2 rounded-xl text-xs uppercase tracking-wider transition shadow-sm">
+            <button type="button" id="btnTopSubmit" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold px-6 py-2 rounded-xl text-xs uppercase tracking-wider transition shadow-sm">
                 Ajukan KI
             </button>
         </div>
@@ -25,7 +25,7 @@
     <div class="bg-white rounded-2xl border border-slate-200 p-3 shadow-xs">
         <div class="grid grid-cols-5 gap-2 text-center text-xs font-bold uppercase tracking-wider">
             <button type="button" onclick="goToStep(1)" id="stepTab1" class="py-3 px-2 rounded-xl bg-blue-600 text-white border border-blue-600 font-extrabold transition flex items-center justify-center gap-1">
-                <span id="checkStep1">✓</span>
+                <span id="checkStep1" class="hidden text-emerald-600 font-black">✓</span>
                 <span>1. Jenis</span>
             </button>
             <button type="button" onclick="goToStep(2)" id="stepTab2" class="py-3 px-2 rounded-xl bg-slate-50 text-slate-400 hover:text-slate-700 transition flex items-center justify-center gap-1">
@@ -104,7 +104,7 @@
                         $categories = \App\Models\ApplicationCategory::where('is_active', true)->orderBy('name')->get();
                     @endphp
                     <select id="application_category" name="application_category" required class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 font-medium focus:outline-none focus:border-blue-600 bg-white text-xs">
-                        <option value="">-- Pilih Kategori Pengajuan HKI --</option>
+                        <option value="">-- Pilih Kategori Pengajuan KI --</option>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->code }}" {{ old('application_category') == $cat->code ? 'selected' : '' }}>
                                 {{ $cat->name }} ({{ $cat->description ?: 'Tarif & Subjek ' . $cat->name }})
@@ -235,13 +235,13 @@
             <!-- ================= STEP 3: DETAIL INVENSI / KARYA & FOTO PRODUK ================= -->
             <div id="stepContent3" class="hidden space-y-6">
                 <div>
-                    <h3 class="text-xl font-extrabold text-slate-900">Detail Invensi & Foto Produk HKI</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900">Detail Invensi & Foto Produk KI</h3>
                     <p class="text-xs text-slate-500 mt-1">Masukkan judul resmi karya, deskripsi singkat, dan foto produk invensi Anda.</p>
                 </div>
 
                 <div class="space-y-4 text-xs">
                     <div>
-                        <label for="title" class="block font-bold text-slate-800 uppercase mb-1">Judul Invensi / Karya HKI <span class="text-red-600">*</span></label>
+                        <label for="title" class="block font-bold text-slate-800 uppercase mb-1">Judul Invensi / Karya KI <span class="text-red-600">*</span></label>
                         <input type="text" id="title" name="title" required value="{{ old('title') }}" placeholder="Contoh: Alat Pengolah Limbah Plastik Berbasis Sensor IOT Deep Learning" class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium">
                     </div>
 
@@ -250,13 +250,13 @@
                         <textarea id="description" name="description" rows="3" placeholder="Jelaskan ringkasan keunggulan, kebaruan, atau fungsi utama invensi Anda..." class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium">{{ old('description') }}</textarea>
                     </div>
 
-                    <!-- Task 1: Upload Foto Produk Invensi HKI -->
+                    <!-- Task 1: Upload Foto Produk Invensi KI -->
                     <div class="bg-blue-50/60 border border-blue-200 rounded-xl p-4 space-y-2">
                         <label for="product_image" class="block font-extrabold text-slate-900 uppercase text-xs">
-                            📷 Upload Foto Produk / Visual Invensi HKI <span class="text-slate-400 font-normal">(Opsional)</span>
+                            📷 Upload Foto Produk / Visual Invensi KI <span class="text-slate-400 font-normal">(Opsional)</span>
                         </label>
                         <input type="file" id="product_image" name="product_image" accept="image/jpeg,image/png,image/jpg" class="w-full text-xs text-slate-600 border border-slate-300 rounded-lg bg-white p-2 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700">
-                        <p class="text-[10px] text-slate-500">Format gambar: JPG, PNG, JPEG (Maksimal 5MB). Foto produk akan ditampilkan pada pratinjau detail permohonan HKI Anda.</p>
+                        <p class="text-[10px] text-slate-500">Format gambar: JPG, PNG, JPEG (Maksimal 5MB). Foto produk akan ditampilkan pada pratinjau detail permohonan KI Anda.</p>
                     </div>
                 </div>
 
@@ -273,7 +273,7 @@
             <!-- ================= STEP 4: UNDUH TEMPLATE & UPLOAD DOKUMEN (TASK 2 IMPROVED LAYOUT) ================= -->
             <div id="stepContent4" class="hidden space-y-6">
                 <div>
-                    <h3 class="text-xl font-extrabold text-slate-900">Informasi 8 Formulir Dokumen HKI</h3>
+                    <h3 class="text-xl font-extrabold text-slate-900">Informasi 8 Formulir Dokumen KI</h3>
                     <p class="text-xs text-slate-500 mt-1">Unduh template Word (.docx) resmi yang diberikan oleh Admin dan siapkan file dokumen Anda.</p>
                 </div>
 
@@ -324,8 +324,8 @@
                     <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto text-3xl font-extrabold">
                         🚀
                     </div>
-                    <h3 class="text-2xl font-extrabold text-slate-900">Siap Mengajukan Permohonan HKI</h3>
-                    <p class="text-xs text-slate-500 max-w-md mx-auto">Klik tombol di bawah untuk menyimpan pengajuan HKI ke dalam daftar draft Anda dan mulai mengunggah formulir dokumen.</p>
+                    <h3 class="text-2xl font-extrabold text-slate-900">Siap Mengajukan Permohonan KI</h3>
+                    <p class="text-xs text-slate-500 max-w-md mx-auto">Klik tombol di bawah untuk menyimpan pengajuan KI ke dalam daftar draft Anda dan mulai mengunggah formulir dokumen.</p>
                 </div>
 
                 <div class="pt-4 flex justify-between border-t border-slate-100">
@@ -346,16 +346,149 @@
 <script>
     const facultyOptionsHtml = `{!! $facultyOptions !!}`;
     const completedSteps = {
-        1: true, // Step 1 default selected PATEN
+        1: false,
         2: false,
         3: false,
         4: false,
         5: false
     };
 
+    /* ========================
+     * STEP VALIDATION HELPERS
+     * ======================== */
+    function showStepError(message) {
+        let existing = document.getElementById('stepValidationAlert');
+        if (existing) existing.remove();
+
+        const alert = document.createElement('div');
+        alert.id = 'stepValidationAlert';
+        alert.className = 'fixed top-4 right-4 z-50 bg-red-600 text-white px-5 py-3.5 rounded-2xl shadow-xl text-xs font-bold flex items-center gap-3 max-w-sm animate-bounce';
+        alert.innerHTML = `<span class="text-lg">⚠️</span><span>${message}</span><button onclick="this.parentElement.remove()" class="ml-auto text-white font-black text-base leading-none">×</button>`;
+        document.body.appendChild(alert);
+        setTimeout(() => { if (alert.parentElement) alert.remove(); }, 4000);
+    }
+
+    function validateStep(step) {
+        if (step === 1) {
+            const appType = document.getElementById('inputApplicationType').value;
+            const category = document.getElementById('application_category').value;
+            if (!appType) {
+                showStepError('Harap pilih Jenis KI terlebih dahulu!');
+                return false;
+            }
+            if (!category) {
+                showStepError('Harap pilih Kategori Pengajuan terlebih dahulu!');
+                return false;
+            }
+            return true;
+        }
+
+        if (step === 2) {
+            let valid = true;
+            const rows = document.querySelectorAll('.applicant-row');
+            rows.forEach((row, i) => {
+                const name = row.querySelector('input[name*="applicant_name"]');
+                const address = row.querySelector('textarea[name*="applicant_address"]');
+                const nik = row.querySelector('input[name*="applicant_nik"]');
+                if (name && !name.value.trim()) {
+                    name.classList.add('border-red-500', 'ring-1', 'ring-red-400');
+                    valid = false;
+                } else if (name) { name.classList.remove('border-red-500', 'ring-1', 'ring-red-400'); }
+                if (address && !address.value.trim()) {
+                    address.classList.add('border-red-500', 'ring-1', 'ring-red-400');
+                    valid = false;
+                } else if (address) { address.classList.remove('border-red-500', 'ring-1', 'ring-red-400'); }
+                if (nik && !nik.value.trim()) {
+                    nik.classList.add('border-red-500', 'ring-1', 'ring-red-400');
+                    valid = false;
+                } else if (nik) { nik.classList.remove('border-red-500', 'ring-1', 'ring-red-400'); }
+            });
+            if (!valid) {
+                showStepError('Harap lengkapi semua kolom wajib di bagian Pemohon (Nama, Alamat, NIK)!');
+            }
+            return valid;
+        }
+
+        if (step === 3) {
+            const title = document.getElementById('title');
+            if (!title || !title.value.trim()) {
+                if (title) title.classList.add('border-red-500', 'ring-1', 'ring-red-400');
+                showStepError('Harap isi Judul Invensi / Karya KI terlebih dahulu!');
+                return false;
+            }
+            if (title) title.classList.remove('border-red-500', 'ring-1', 'ring-red-400');
+            return true;
+        }
+
+        // Steps 4, 5 — no blocking validation
+        return true;
+    }
+
+    /* ========================
+     * STEP NAVIGATION
+     * ======================== */
+    function goToStep(stepNumber) {
+        const currentStep = getCurrentStep();
+
+        // Validate before going forward
+        if (stepNumber > currentStep) {
+            for (let s = currentStep; s < stepNumber; s++) {
+                if (!validateStep(s)) return;
+            }
+            // Mark intermediate steps as done
+            for (let s = currentStep; s < stepNumber; s++) {
+                completedSteps[s] = true;
+            }
+        }
+
+        updateCheckmarks();
+
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById('stepContent' + i).classList.add('hidden');
+            const tab = document.getElementById('stepTab' + i);
+
+            if (completedSteps[i] && i !== stepNumber) {
+                tab.className = "py-3 px-2 rounded-xl bg-emerald-100/70 text-emerald-900 border border-emerald-300 font-extrabold transition flex items-center justify-center gap-1";
+            } else if (i === stepNumber) {
+                tab.className = "py-3 px-2 rounded-xl bg-blue-600 text-white border border-blue-600 font-extrabold transition flex items-center justify-center gap-1 shadow-xs";
+            } else {
+                tab.className = "py-3 px-2 rounded-xl bg-slate-50 text-slate-400 hover:text-slate-700 transition flex items-center justify-center gap-1";
+            }
+        }
+
+        document.getElementById('stepContent' + stepNumber).classList.remove('hidden');
+    }
+
+    function getCurrentStep() {
+        for (let i = 1; i <= 5; i++) {
+            const el = document.getElementById('stepContent' + i);
+            if (el && !el.classList.contains('hidden')) return i;
+        }
+        return 1;
+    }
+
+    /* ========================
+     * CHECKMARKS
+     * ======================== */
+    function updateCheckmarks() {
+        for (let i = 1; i <= 4; i++) {
+            const check = document.getElementById('checkStep' + i);
+            if (check) {
+                if (completedSteps[i]) {
+                    check.classList.remove('hidden');
+                } else {
+                    check.classList.add('hidden');
+                }
+            }
+        }
+    }
+
+    /* ========================
+     * KI CARD SELECTION
+     * ======================== */
     function selectKiCard(code, element) {
         document.getElementById('inputApplicationType').value = code;
-        
+
         document.querySelectorAll('.ki-card').forEach(card => {
             card.classList.remove('border-blue-600', 'bg-blue-50/70', 'ring-2', 'ring-blue-400');
             card.classList.add('border-slate-200', 'bg-white');
@@ -364,22 +497,13 @@
         element.classList.remove('border-slate-200', 'bg-white');
         element.classList.add('border-blue-600', 'bg-blue-50/70', 'ring-2', 'ring-blue-400');
 
-        completedSteps[1] = true;
+        completedSteps[1] = false; // requires category too
         updateCheckmarks();
     }
 
-    function updateCheckmarks() {
-        for (let i = 1; i <= 4; i++) {
-            const check = document.getElementById('checkStep' + i);
-            const tab = document.getElementById('stepTab' + i);
-            
-            if (completedSteps[i]) {
-                if (check) check.classList.remove('hidden');
-                tab.classList.add('border-emerald-300', 'text-emerald-900');
-            }
-        }
-    }
-
+    /* ========================
+     * APPLICANT ROWS
+     * ======================== */
     function updateApplicantRowNumbers() {
         document.querySelectorAll('.applicant-row').forEach((row, i) => {
             var header = row.querySelector('h4');
@@ -401,10 +525,6 @@
             if (num >= newIndex) newIndex = num + 1;
         });
 
-        var dummyName = 'Contoh Nama Anggota';
-        var dummyAddress = 'Jl. Contoh No. 1, Kota Anda';
-        var dummyNik = '5206011504850003';
-
         var html = '';
         html += '<div id="applicantRow' + newIndex + '" class="bg-white rounded-2xl border border-slate-200 p-5 space-y-4 shadow-xs applicant-row">';
         html += '<div class="flex items-center justify-between border-b border-slate-200 pb-3">';
@@ -414,15 +534,15 @@
         html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
         html += '<div>';
         html += '<label for="applicants_' + newIndex + '_applicant_name" class="block font-bold text-slate-800 uppercase text-xs mb-1">Nama Lengkap <span class="text-red-600">*</span></label>';
-        html += '<input type="text" id="applicants_' + newIndex + '_applicant_name" name="applicants[' + newIndex + '][applicant_name]" value="' + dummyName + '" required placeholder="Masukkan nama lengkap sesuai KTP" class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium text-xs">';
+        html += '<input type="text" id="applicants_' + newIndex + '_applicant_name" name="applicants[' + newIndex + '][applicant_name]" value="" required placeholder="Masukkan nama lengkap sesuai KTP" class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium text-xs">';
         html += '</div>';
         html += '<div class="md:col-span-2">';
         html += '<label for="applicants_' + newIndex + '_applicant_address" class="block font-bold text-slate-800 uppercase text-xs mb-1">Alamat <span class="text-red-600">*</span></label>';
-        html += '<textarea id="applicants_' + newIndex + '_applicant_address" name="applicants[' + newIndex + '][applicant_address]" required rows="2" placeholder="Masukkan alamat lengkap sesuai KTP" class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium text-xs resize-y">' + dummyAddress + '</textarea>';
+        html += '<textarea id="applicants_' + newIndex + '_applicant_address" name="applicants[' + newIndex + '][applicant_address]" required rows="2" placeholder="Masukkan alamat lengkap sesuai KTP" class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium text-xs resize-y"></textarea>';
         html += '</div>';
         html += '<div>';
         html += '<label for="applicants_' + newIndex + '_applicant_nik" class="block font-bold text-slate-800 uppercase text-xs mb-1">NIK <span class="text-red-600">*</span></label>';
-        html += '<input type="text" id="applicants_' + newIndex + '_applicant_nik" name="applicants[' + newIndex + '][applicant_nik]" value="' + dummyNik + '" required placeholder="Nomor Induk Kependudukan" class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium text-xs">';
+        html += '<input type="text" id="applicants_' + newIndex + '_applicant_nik" name="applicants[' + newIndex + '][applicant_nik]" value="" required placeholder="Nomor Induk Kependudukan" class="w-full border border-slate-300 rounded-xl p-3.5 text-slate-900 focus:outline-none focus:border-blue-600 font-medium text-xs">';
         html += '</div>';
         html += '<div>';
         html += '<label for="applicants_' + newIndex + '_applicant_nip" class="block font-bold text-slate-800 uppercase text-xs mb-1">NIP <span class="text-slate-400 font-normal">(Opsional)</span></label>';
@@ -451,37 +571,42 @@
         }
     }
 
-    function goToStep(stepNumber) {
-        // Mark previous steps as completed when navigating forward
-        for (let i = 1; i < stepNumber; i++) {
-            completedSteps[i] = true;
-        }
-
-        updateCheckmarks();
-
-        for (let i = 1; i <= 5; i++) {
-            document.getElementById('stepContent' + i).classList.add('hidden');
-            const tab = document.getElementById('stepTab' + i);
-            
-            if (completedSteps[i] && i !== stepNumber) {
-                tab.className = "py-3 px-2 rounded-xl bg-emerald-100/70 text-emerald-900 border border-emerald-300 font-extrabold transition flex items-center justify-center gap-1";
-            } else if (i === stepNumber) {
-                tab.className = "py-3 px-2 rounded-xl bg-blue-600 text-white border border-blue-600 font-extrabold transition flex items-center justify-center gap-1 shadow-xs";
-            } else {
-                tab.className = "py-3 px-2 rounded-xl bg-slate-50 text-slate-400 hover:text-slate-700 transition flex items-center justify-center gap-1";
-            }
-        }
-
-        document.getElementById('stepContent' + stepNumber).classList.remove('hidden');
-    }
-
+    /* ========================
+     * FORM SUBMIT (SIMPAN DRAFT)
+     * ======================== */
     document.addEventListener('DOMContentLoaded', function () {
+        // Auto-select first card
         const firstCard = document.querySelector('.ki-card');
         if (firstCard) {
-            selectKiCard('PATEN', firstCard);
+            const code = firstCard.getAttribute('onclick').match(/'([^']+)'/)[1];
+            selectKiCard(code, firstCard);
         }
         updateCheckmarks();
         updateApplicantRowNumbers();
+
+        // Top "Ajukan KI" button → validate all steps then submit
+        const topSubmitBtn = document.getElementById('btnTopSubmit');
+        if (topSubmitBtn) {
+            topSubmitBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                for (let s = 1; s <= 3; s++) {
+                    if (!validateStep(s)) { goToStep(s); return; }
+                }
+                document.getElementById('applicationForm').submit();
+            });
+        }
+
+        // Category change → triggers step1 completeness
+        const catSelect = document.getElementById('application_category');
+        if (catSelect) {
+            catSelect.addEventListener('change', function() {
+                if (this.value && document.getElementById('inputApplicationType').value) {
+                    completedSteps[1] = true;
+                    updateCheckmarks();
+                }
+            });
+        }
     });
 </script>
 @endsection
+

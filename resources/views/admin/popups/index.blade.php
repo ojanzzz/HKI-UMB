@@ -1,17 +1,15 @@
 @extends('layouts.dashboard')
 
-@section('title', 'CRUD Welcome Popup Homepage - Admin HKI UMB')
+@section('title', 'CRUD Welcome Popup Homepage - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-8 space-y-8">
-    <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
-        <div>
-            <span class="bg-[#002855] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
-                KONTEN HOMEPAGE
-            </span>
-            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">CRUD Welcome Popup Modal</h2>
-            <p class="text-xs text-slate-500">Popup ini akan tampil di homepage publik untuk memberikan informasi pengumuman HKI.</p>
-        </div>
+    <div class="border-b border-slate-200 pb-4">
+        <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
+            ENGAGEMENT & ANNOUNCEMENT
+        </span>
+        <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">CRUD Welcome Popup Modal Homepage</h2>
+        <p class="text-xs text-slate-500">Popup ini akan tampil di homepage publik untuk memberikan informasi pengumuman KI.</p>
     </div>
 
     <!-- Grid Form & List -->

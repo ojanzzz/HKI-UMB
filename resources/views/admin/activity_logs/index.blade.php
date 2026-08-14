@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Log Aktivitas Sistem - Admin HKI UMB')
+@section('title', 'Log Aktivitas Sistem - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto space-y-8 py-4">

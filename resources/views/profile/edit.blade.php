@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Edit Profil Saya - Sentra HKI UM BIMA')
+@section('title', 'Edit Profil Saya - Direktorat Inovasi & KI UM BIMA')
 
 @section('content')
 <div class="max-w-4xl mx-auto space-y-8 py-4">
@@ -8,7 +8,7 @@
     <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
             <span class="bg-[#064E3B] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
-                AKUN PEMOHON HKI
+                AKUN PEMOHON KI
             </span>
             <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Edit Profil Saya</h2>
             <p class="text-xs text-slate-500">Perbarui identitas NIK, NIP, NIM, dokumen KTP, nomor WhatsApp, fakultas, atau password akun Anda.</p>

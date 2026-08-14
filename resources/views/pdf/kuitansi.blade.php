@@ -68,7 +68,7 @@
         <table>
             <tr>
                 <td width="70%">
-                    <h3 style="margin: 0; color: #002855;">SENTRA HKI UNIVERSITAS MERCU BUANA</h3>
+                    <h3 style="margin: 0; color: #002855;">DIREKTORAT INOVASI DAN KEKAYAAN INTELEKTUAL (KI) UM BIMA</h3>
                     <p style="margin: 3px 0 0 0; font-size: 9pt; color: #64748B;">Layanan SIMPAKI Terintegrasi DJKI Kemenkumham RI</p>
                 </td>
                 <td width="30%" style="text-align: right;">
@@ -78,62 +78,55 @@
         </table>
     </div>
 
-    <div class="title">KUITANSI BUKTI PEMBAYARAN HKI</div>
+    <div class="title">KUITANSI BUKTI PEMBAYARAN KI</div>
 
-    <div class="box-info">
-        <table class="table-details">
-            <tr>
-                <td width="35%"><strong>No. Kuitansi</strong></td>
-                <td width="3%">:</td>
-                <td>KUT-UMB-{{ str_pad($payment->id, 5, '0', STR_PAD_LEFT) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Diterima Dari</strong></td>
-                <td>:</td>
-                <td>{{ $user->name }} ({{ $user->identity_number }})</td>
-            </tr>
-            <tr>
-                <td><strong>Fakultas / Unit</strong></td>
-                <td>:</td>
-                <td>{{ $user->faculty }}</td>
-            </tr>
-            <tr>
-                <td><strong>Judul Permohonan HKI</strong></td>
-                <td>:</td>
-                <td><strong>{{ $application->title }}</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Nomor Permohonan DJKI</strong></td>
-                <td>:</td>
-                <td>{{ $application->djki_application_number ?? '-' }}</td>
-            </tr>
-            <tr>
-                <td><strong>Kode Billing SIMPAKI</strong></td>
-                <td>:</td>
-                <td><strong style="color: #002855;">{{ $payment->simpaki_code }}</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Status Verifikasi</strong></td>
-                <td>:</td>
-                <td><span class="status-badge">✓ LUNAS (VERIFIED)</span></td>
-            </tr>
-            <tr>
-                <td><strong>Tanggal Verifikasi</strong></td>
-                <td>:</td>
-                <td>{{ date('d F Y H:i', strtotime($payment->verified_at ?? now())) }} WIB</td>
-            </tr>
-        </table>
+    <table class="details-table">
+        <tr>
+            <td width="30%"><strong>Nomor Kuitansi</strong></td>
+            <td width="70%">: KWI-SIMPAKI-{{ date('Ymd', strtotime($payment->created_at ?? now())) }}-{{ $payment->id ?? $application->id }}</td>
+        </tr>
+        <tr>
+            <td><strong>Tanggal Pembayaran</strong></td>
+            <td>: {{ date('d F Y', strtotime($payment->created_at ?? now())) }}</td>
+        </tr>
+        <tr>
+            <td><strong>Telah Diterima Dari</strong></td>
+            <td>: <strong>{{ strtoupper($application->user->name ?? 'Pemohon') }}</strong> ({{ $application->user->faculty ?? 'Sivitas UM BIMA' }})</td>
+        </tr>
+        <tr>
+            <td><strong>NIK / NIP / NIM</strong></td>
+            <td>: {{ $application->user->identity_number ?? '-' }}</td>
+        </tr>
+        <tr>
+            <td><strong>Judul Permohonan KI</strong></td>
+            <td>: "{{ $application->title }}"</td>
+        </tr>
+        <tr>
+            <td><strong>Jenis KI & Kategori</strong></td>
+            <td>: {{ strtoupper($application->application_type) }} - {{ $application->application_category ?? 'UMKM' }}</td>
+        </tr>
+        <tr>
+            <td><strong>Nomor Billing SIMPAKI</strong></td>
+            <td>: <strong>{{ $application->simpaki_billing_code ?? 'SIMPAKI-BILL-OFFICIAL' }}</strong></td>
+        </tr>
+    </table>
 
-        <div class="amount-box">
-            TOTAL BAYAR: Rp {{ number_format($payment->amount, 0, ',', '.') }}
-        </div>
+    <div class="amount-box">
+        TOTAL BAYAR: Rp {{ number_format($payment->amount ?? $application->billing_amount ?? 0, 0, ',', '.') }}
+        <div class="terbilang">Status: LUNAS & DIVERIFIKASI ADMINISTRATOR</div>
     </div>
 
-    <div class="stamp">
-        <p>Jakarta, {{ date('d F Y') }}</p>
-        <p>Verifikator Keuangan HKI UMB,</p>
+    <div class="footer-note">
+        <p><strong>Catatan Tambahan:</strong></p>
+        <p>1. Bukti pembayaran ini adalah sah dan digenerate secara otomatis oleh Sistem Informasi KI UM BIMA.</p>
+        <p>2. Nomor billing SIMPAKI di atas telah terdaftar secara resmi pada portal DJKI Kemenkumham RI.</p>
+    </div>
+
+    <div class="signature-section">
+        <p>Bima, {{ date('d F Y') }}</p>
+        <p>Verifikator Keuangan KI UM BIMA,</p>
         <br><br>
-        <p style="font-weight: bold; text-decoration: underline;">Admin Sentra HKI UMB</p>
+        <p style="font-weight: bold; text-decoration: underline;">Admin Direktorat Inovasi & KI UM Bima</p>
         <p style="font-size: 8pt; color: #64748B;">NIP: 198809012019031002</p>
     </div>
 

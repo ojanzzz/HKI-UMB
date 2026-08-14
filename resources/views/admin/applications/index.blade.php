@@ -1,15 +1,15 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Daftar Pengajuan HKI - Admin HKI UMB')
+@section('title', 'Daftar Pengajuan KI - Admin KI UM BIMA')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-8 space-y-6">
     <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
         <div>
             <span class="bg-[#002855] text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
-                MANAJEMEN HKI
+                MANAJEMEN KI
             </span>
-            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Daftar Seluruh Permohonan HKI</h2>
+            <h2 class="text-2xl font-extrabold text-slate-900 uppercase tracking-tight mt-1">Daftar Seluruh Permohonan KI</h2>
             <p class="text-xs text-slate-500">Cek 8 dokumen, lakukan Export ZIP untuk portal DJKI, serta terbitkan Billing SIMPAKI.</p>
         </div>
     </div>
@@ -69,7 +69,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="py-8 text-center text-slate-500">Belum ada permohonan HKI yang diajukan.</td>
+                            <td colspan="7" class="py-8 text-center text-slate-500">Belum ada permohonan KI yang diajukan.</td>
                         </tr>
                     @endforelse
                 </tbody>

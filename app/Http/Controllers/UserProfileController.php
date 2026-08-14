@@ -55,7 +55,7 @@ class UserProfileController extends Controller
 
         if ($user->status === 'pending') {
             return redirect()->route('profile.pending')
-                ->with('success', 'Profil dan Dokumen KTP berhasil disimpan. Akun Anda saat ini menunggu verifikasi (Approve) oleh Admin HKI UM BIMA.');
+                ->with('success', 'Profil dan Dokumen KTP berhasil disimpan. Akun Anda saat ini menunggu verifikasi (Approve) oleh Admin KI UM BIMA.');
         }
 
         return redirect()->route('user.dashboard')->with('success', 'Profil berhasil diperbarui!');

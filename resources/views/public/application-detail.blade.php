@@ -19,7 +19,7 @@
         <div class="bg-gradient-to-r from-[#064E3B] to-[#047857] px-6 py-5">
             <div class="flex flex-wrap items-center gap-2 mb-3">
                 <span class="bg-white/20 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                    DETAIL AJUAN HKI #{{ $application->id }}
+                    DETAIL AJUAN KI #{{ $application->id }}
                 </span>
                 <span class="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase border border-white/20">
                     {{ strtoupper($application->application_type) }}
@@ -28,71 +28,104 @@
                     <span class="bg-emerald-400 text-emerald-950 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase">
                         ✓ TERDAFTAR DJKI
                     </span>
-                @else
-                    <span class="bg-amber-400 text-amber-950 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase">
-                        PROSES VERIFIKASI
-                    </span>
                 @endif
             </div>
-            <h1 class="text-xl font-extrabold text-white uppercase tracking-tight leading-tight">
+
+            <h1 class="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">
                 {{ $application->title }}
             </h1>
+
+            <div class="flex flex-wrap items-center gap-4 text-xs text-white/80 mt-3 font-medium">
+                <div class="flex items-center gap-1.5">
+                    <span>👤</span>
+                    <span>Pemohon: <strong class="text-white">{{ $application->user->name ?? 'Sivitas UM BIMA' }}</strong></span>
+                </div>
+                @if($application->user->faculty)
+                    <div class="flex items-center gap-1.5">
+                        <span>🏛️</span>
+                        <span>Fakultas: <strong class="text-white">{{ $application->user->faculty }}</strong></span>
+                    </div>
+                @endif
+                <div class="flex items-center gap-1.5">
+                    <span>📅</span>
+                    <span>Tgl Pengajuan: <strong class="text-white">{{ $application->created_at->format('d F Y') }}</strong></span>
+                </div>
+            </div>
         </div>
-        <div class="px-6 py-3 bg-slate-50 border-t border-slate-200">
-            <span class="text-[10px] text-slate-500 font-mono">
-                No. Permohonan DJKI:
-                <strong class="text-slate-800 ml-1">
+
+        {{-- Row Info --}}
+        <div class="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-slate-100 bg-slate-50 text-xs font-semibold text-slate-600 border-t border-slate-200">
+            <div class="p-4 text-center">
+                <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Status Pengajuan</span>
+                <span class="bg-emerald-100 text-emerald-900 border border-emerald-300 font-extrabold px-3 py-1 rounded-full text-[10px] uppercase">
+                    {{ strtoupper(str_replace('_', ' ', $application->status)) }}
+                </span>
+            </div>
+            <div class="p-4 text-center">
+                <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">No. Permohonan DJKI</span>
+                <span class="font-bold text-slate-900 font-mono">
                     {{ $application->djki_application_number ?? ('PTN' . date('Ymd', strtotime($application->created_at)) . $application->id) }}
-                </strong>
-            </span>
+                </span>
+            </div>
+            <div class="p-4 text-center">
+                <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kategori Pengajuan</span>
+                <span class="font-bold text-slate-900 uppercase">
+                    {{ $application->application_category ?? 'UMKM' }}
+                </span>
+            </div>
+            <div class="p-4 text-center">
+                <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Dokumen Lengkap</span>
+                <span class="font-bold text-slate-900">
+                    {{ $application->documents->count() }} / 8 Dokumen
+                </span>
+            </div>
         </div>
     </div>
 
     {{-- =========================================================
-         IMAGE + DESCRIPTION (Proportional Grid)
+         BODY: Visual Preview Invensi + Deskripsi
     ========================================================== --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {{-- Foto Produk (klik-to-enlarge) --}}
-        @if($application->product_image_path)
-            <div class="lg:col-span-1">
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="bg-slate-50 border-b border-slate-200 px-4 py-2.5">
-                        <span class="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1">
-                            <span>📷</span> Foto Produk Invensi
-                        </span>
-                    </div>
-                    <div class="p-3">
-                        <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-slate-200 bg-slate-100"
-                             onclick="openImageLightbox('{{ asset('storage/' . $application->product_image_path) }}', '{{ $application->title }}')">
-                            <img src="{{ asset('storage/' . $application->product_image_path) }}"
-                                 alt="Foto Produk {{ $application->title }}"
-                                 class="w-full h-52 object-cover object-center transition-opacity duration-200 group-hover:opacity-85">
-                            <div class="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                <span class="text-white text-[10px] font-bold bg-slate-900/70 px-3 py-1 rounded-full backdrop-blur-sm">
-                                    🔍 Klik untuk perbesar
-                                </span>
-                            </div>
+        {{-- Left: Foto Produk Invensi (Visual Cards) --}}
+        <div class="lg:col-span-1 space-y-4">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-center space-y-3">
+                <h2 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center justify-center gap-1.5">
+                    <span>📷</span>
+                    <span>Visual Produk Invensi</span>
+                </h2>
+
+                @if($application->product_image_path)
+                    <div class="relative group cursor-pointer overflow-hidden rounded-xl border border-slate-200 shadow-xs bg-slate-50"
+                         onclick="openImageLightbox('{{ asset('storage/' . $application->product_image_path) }}')">
+                        <img src="{{ asset('storage/' . $application->product_image_path) }}" alt="Visual Invensi"
+                             class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold gap-1">
+                            <span>🔍</span> Klik Perbesar
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="w-full h-44 bg-slate-100 rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 p-4 space-y-1">
+                        <span class="text-3xl">🖼️</span>
+                        <span class="text-[11px] font-bold text-slate-500">Tidak Ada Foto Produk</span>
+                        <span class="text-[10px] text-slate-400 text-center">Pemohon tidak mengunggah foto visual produk invensi</span>
+                    </div>
+                @endif
             </div>
-            <div class="lg:col-span-2 space-y-4">
-        @else
-            <div class="lg:col-span-3 space-y-4">
-        @endif
+        </div>
 
+        {{-- Right: Deskripsi Invensi --}}
+        <div class="lg:col-span-2 space-y-4">
             {{-- Deskripsi Invensi --}}
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
                 <h2 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
                     <span>📝</span>
-                    <span>Deskripsi Invensi / Karya HKI</span>
+                    <span>Deskripsi Invensi / Karya KI</span>
                 </h2>
                 <p class="text-sm text-slate-700 leading-relaxed">
                     {{ $application->description ?? ('Invensi mengenai ' . strtolower($application->title) . ' oleh sivitas akademika ' . ($application->user->faculty ?? 'UM BIMA') . '.') }}
                 </p>
             </div>
-
         </div>
     </div>
 
@@ -166,7 +199,7 @@
     <div class="flex justify-center pt-2 pb-6">
         <a href="{{ route('login') }}" class="bg-[#064E3B] hover:bg-[#047857] text-white font-extrabold px-8 py-3.5 rounded-2xl text-xs uppercase tracking-wider transition shadow-md flex items-center gap-2">
             <span>🔒</span>
-            <span>Daftarkan HKI Anda Sekarang</span>
+            <span>Daftarkan KI Anda Sekarang</span>
         </a>
     </div>
 

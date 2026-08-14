@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Akun Admin Sentra HKI UMB
+        // 1. Akun Admin Direktorat Inovasi & KI UM Bima
         User::create([
-            'name' => 'Administrator Sentra HKI UMB',
+            'name' => 'Administrator Direktorat Inovasi & KI UM Bima',
             'email' => 'admin@umb.ac.id',
             'role' => 'admin',
             'identity_number' => '198809012019031002',
-            'faculty' => 'Sentra HKI & LPPM UMB',
+            'faculty' => 'Direktorat Inovasi & KI UM Bima',
             'phone_number' => '08111222333',
             'status' => 'approved',
             'password' => Hash::make('password123'),

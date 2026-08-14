@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard - Sentra HKI UM BIMA')</title>
+    <title>@yield('title', 'Dashboard - Direktorat Inovasi & KI UM BIMA')</title>
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,11 +69,9 @@
             <div>
                 <div class="h-16 px-4 bg-[#043E2F] flex items-center justify-between border-b border-emerald-800/60">
                     <a href="{{ route('home') }}" class="flex items-center space-x-3 overflow-hidden">
-                        <div class="w-9 h-9 bg-amber-500 text-slate-950 rounded-lg flex items-center justify-center font-extrabold text-xs shrink-0 shadow-sm">
-                            HKI
-                        </div>
+                        <img src="{{ asset('logo/logo.png') }}" alt="Logo KI UMB" class="w-9 h-9 object-contain shrink-0">
                         <div class="sidebar-text truncate">
-                            <h1 class="text-xs font-extrabold text-white tracking-tight leading-none uppercase">SENTRA HKI</h1>
+                            <h1 class="text-[10px] font-extrabold text-white tracking-tight leading-none uppercase">DIREKTORAT INOVASI & KI</h1>
                             <p class="text-[9px] text-emerald-300 font-bold tracking-widest mt-0.5 uppercase">UM BIMA</p>
                         </div>
                     </a>
@@ -115,7 +113,7 @@
 
                             <a href="{{ route('admin.application-types') }}" class="sidebar-menu-item flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.application-types*') ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md' : 'text-emerald-100 hover:bg-emerald-800/60 hover:text-white' }}">
                                 <span class="text-base">🏷️</span>
-                                <span class="sidebar-text">Tipe Permohonan HKI</span>
+                                <span class="sidebar-text">Tipe Permohonan KI</span>
                             </a>
 
                             <a href="{{ route('admin.application-categories') }}" class="sidebar-menu-item flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.application-categories*') ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md' : 'text-emerald-100 hover:bg-emerald-800/60 hover:text-white' }}">
@@ -123,9 +121,14 @@
                                 <span class="sidebar-text">Kategori Pengajuan</span>
                             </a>
 
+                            <a href="{{ route('admin.templates') }}" class="sidebar-menu-item flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.templates*') ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md' : 'text-emerald-100 hover:bg-emerald-800/60 hover:text-white' }}">
+                                <span class="text-base">📄</span>
+                                <span class="sidebar-text">Templates Dokumen</span>
+                            </a>
+
                             <a href="{{ route('admin.applications') }}" class="sidebar-menu-item flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.applications*') ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md' : 'text-emerald-100 hover:bg-emerald-800/60 hover:text-white' }}">
                                 <span class="text-base">📂</span>
-                                <span class="sidebar-text">Review Permohonan HKI</span>
+                                <span class="sidebar-text">Review Permohonan KI</span>
                             </a>
 
                             <a href="{{ route('admin.activity-logs') }}" class="sidebar-menu-item flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('admin.activity-logs*') ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md' : 'text-emerald-100 hover:bg-emerald-800/60 hover:text-white' }}">
@@ -145,7 +148,7 @@
 
                         @else
                             <!-- USER MENU ITEMS -->
-                            <div class="px-3 py-2 text-[10px] text-emerald-300/70 uppercase tracking-wider sidebar-text font-extrabold">MENU PEMOHON HKI</div>
+                            <div class="px-3 py-2 text-[10px] text-emerald-300/70 uppercase tracking-wider sidebar-text font-extrabold">MENU PEMOHON KI</div>
 
                             <a href="{{ route('user.dashboard') }}" class="sidebar-menu-item flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all {{ request()->routeIs('user.dashboard') ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md' : 'text-emerald-100 hover:bg-emerald-800/60 hover:text-white' }}">
                                 <span class="text-base">📊</span>
@@ -216,7 +219,7 @@
 
                     <!-- Page Breadcrumb Title -->
                     <div>
-                        <h2 class="text-sm font-extrabold text-slate-900 uppercase tracking-tight">@yield('title', 'Dashboard Portal HKI')</h2>
+                        <h2 class="text-sm font-extrabold text-slate-900 uppercase tracking-tight">@yield('title', 'Dashboard Portal KI')</h2>
                         <p class="text-[10px] text-slate-500 font-semibold uppercase">Universitas Muhammadiyah Bima (UM BIMA)</p>
                     </div>
                 </div>
@@ -329,12 +332,11 @@
                 @yield('content')
             </main>
 
-            <!-- Dashboard Sub-footer -->
             <footer class="bg-white border-t border-slate-200 px-6 py-4 text-[11px] text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2 font-medium">
-                <div>© {{ date('Y') }} Sentra HKI Universitas Muhammadiyah Bima (UM BIMA)</div>
+                <div>© {{ date('Y') }} Direktorat Inovasi dan Kekayaan Intelektual (KI) UM Bima</div>
                 <div class="flex space-x-4 font-semibold">
                     <a href="{{ route('panduan') }}" class="hover:text-emerald-700">Panduan Layanan</a>
-                    <a href="{{ route('tentang') }}" class="hover:text-emerald-700">Tentang Sentra HKI</a>
+                    <a href="{{ route('tentang') }}" class="hover:text-emerald-700">Tentang Direktorat Inovasi & KI</a>
                     <a href="{{ route('faq') }}" class="hover:text-emerald-700">FAQ</a>
                 </div>
             </footer>
