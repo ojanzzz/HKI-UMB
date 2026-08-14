@@ -240,7 +240,7 @@
                 if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) {
                     return false;
                 }
-                if (href.startsWith(INDEX_PHP_PREFIX)) {
+                if (href.indexOf(INDEX_PHP_PREFIX) !== -1) {
                     return false;
                 }
                 return true;
