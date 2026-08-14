@@ -229,6 +229,74 @@
                 });
             }
         });
+
+        // URL Rewriter untuk Nginx tanpa try_files
+        // Otomatis menambahkan /index.php/ ke semua link internal yang belum memiliki prefix
+        (function() {
+            const INDEX_PHP_PREFIX = '/index.php';
+            const AAPANEL_404_MARKERS = ['aapanel', 'Sorry, the page you visited does not exist', 'access link is wrong'];
+            
+            function needsRewrite(href) {
+                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) {
+                    return false;
+                }
+                if (href.startsWith(INDEX_PHP_PREFIX)) {
+                    return false;
+                }
+                return true;
+            }
+            
+            function rewriteHref(href) {
+                if (!needsRewrite(href)) return href;
+                
+                if (href === '/' || href === '') {
+                    return INDEX_PHP_PREFIX + '/';
+                }
+                
+                const cleanPath = href.replace(/^\//, '');
+                return INDEX_PHP_PREFIX + '/' + cleanPath;
+            }
+            
+            // Rewrite all existing links
+            document.querySelectorAll('a[href]').forEach(function(link) {
+                const href = link.getAttribute('href');
+                const newHref = rewriteHref(href);
+                if (newHref !== href) {
+                    link.setAttribute('href', newHref);
+                }
+            });
+            
+            // Rewrite all existing forms
+            document.querySelectorAll('form[action]').forEach(function(form) {
+                const action = form.getAttribute('action');
+                const newAction = rewriteHref(action);
+                if (newAction !== action) {
+                    form.setAttribute('action', newAction);
+                }
+            });
+            
+            // Intercept future dynamically added links/forms using event delegation
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('a[href]');
+                if (link) {
+                    const href = link.getAttribute('href');
+                    const newHref = rewriteHref(href);
+                    if (newHref !== href && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                        e.preventDefault();
+                        window.location.href = newHref;
+                    }
+                }
+            });
+            
+            // Fallback: jika halaman adalah 404 aaPanel, redirect ke /index.php/
+            if (document.body && AAPANEL_404_MARKERS.some(marker => document.body.innerHTML.includes(marker))) {
+                const currentPath = window.location.pathname;
+                const newPath = INDEX_PHP_PREFIX + (currentPath === '/' ? '/' : currentPath.replace(/^\//, ''));
+                if (window.location.pathname !== newPath) {
+                    window.location.href = newPath + window.location.search + window.location.hash;
+                }
+            }
+        })();
     </script>
 </body>
 </html>
